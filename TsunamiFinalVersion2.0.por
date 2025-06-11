@@ -378,7 +378,7 @@ programa {
     escreva("⣠⣴⠶⠛⠋⠙⠻⣦⣄⣀⣀⣠⣤⣴⠶⠶⣦⣄⣀⣀⣠⣤⣤⡶")
     escreva("⠀⠈⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠀⠀⠀⠀⠀⠉⠉⠉⠉⠀⠀⠀⠀")    //Linha 14 Palmeira
 
-    u.aguarde(0)
+    u.aguarde(350) // Tempo entre cada frame
     passos--
     
     }
