@@ -313,18 +313,18 @@ programa {
 
   funcao alerta() //FUNCAO da mensagem de alerta (aparece/desaparece)
 	{
-		inteiro contador = 7
+		inteiro contador = 5
 		
 		enquanto (contador > 0)
 		{
 			limpa()
 		  	
 		  	contador = contador - 1
-		  	u.aguarde(500) // Aguarda 500 millisegundos (0.5 segundo)
+		  	u.aguarde(1000) // Aguarda 1000 millisegundos (1 segundo)
 		escreva("!!!Alerta URGENTE!!!, Tsunami a caminho de Florianópolis, deixe a ilha ou procure um abrigo em lugar elevado!")
-				u.aguarde(500) // Aguarda 500 millisegundos (0.5 segundo)
+				u.aguarde(1000) // Aguarda 1000 millisegundos (1 segundo)
 		escreva("\nEncontre um ponto seguro e utilize o código de resgaste: ", codigo)
-				u.aguarde(500) // Aguarda 500 millisegundos (0.5 segundo)
+				u.aguarde(1000) // Aguarda 1000 millisegundos (1 segundo)
 		}
 
 		limpa()
