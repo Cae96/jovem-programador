@@ -17,8 +17,7 @@ Aqui concentramos exercícios, projetos e desafios que reforçam os conteúdos e
 ## 🗂 Estrutura do Repositório
 
 ```bash
-├── HTML/                  # Atividades com HTML
-├── JAVA/                  # Projetos e exercícios em Java
+├── FloriparHackers/       # Pasta de Atividades Compartilhadas
 ├── JAVASCRIPT/            # Scripts e desafios com JS
 ├── LOGICA DE PROGRAMAÇÃO/ # Exercícios de lógica
 ├── PYTHON/                # Projetos e atividades em Python
