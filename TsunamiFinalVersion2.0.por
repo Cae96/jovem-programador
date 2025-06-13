@@ -646,14 +646,7 @@ funcao animacao_moto_caindo(){
 		    u.aguarde(2000) // Wait 2 seconds on the final frame
 		}
 	}
-
-	
-
 }
-
-
-
-
 
   
   
