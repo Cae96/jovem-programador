@@ -47,11 +47,11 @@ git push origin nome-da-sua-atividade
 
 ## 📌 Boas práticas
 
-Use nomes claros para arquivos e pastas (evite espaços);
+- Use nomes claros para arquivos e pastas (evite espaços);
 
-Adicione comentários explicativos nos códigos quando necessário;
+- Adicione comentários explicativos nos códigos quando necessário;
 
-Prefira mensagens de commit objetivas e padronizadas;
+- Prefira mensagens de commit objetivas e padronizadas;
 
-Sempre revise o que foi alterado antes de subir para o repositório.
+- Sempre revise o que foi alterado antes de subir para o repositório.
 
