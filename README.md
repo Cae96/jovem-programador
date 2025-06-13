@@ -25,7 +25,7 @@ Aqui concentramos exercícios, projetos e desafios que reforçam os conteúdos e
 ├── README.md              # Este arquivo de descrição
 ```
 
-🚀 Como colaborar
+## 🚀 Como colaborar
 
 1. Clone o repositório:
 ```bash
