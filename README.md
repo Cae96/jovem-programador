@@ -45,7 +45,7 @@ git push origin nome-da-sua-atividade
 ```
 4. Abra um Pull Request para revisão e integração da atividade.
 
-📌 Boas práticas
+##📌 Boas práticas
 
 Use nomes claros para arquivos e pastas (evite espaços);
 
