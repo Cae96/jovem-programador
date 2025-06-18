@@ -1,0 +1,61 @@
+
+programa
+{
+
+  inclua biblioteca Util  // importando funcao util
+
+	cadeia usuario,senha
+	inteiro infinito =1
+	cadeia bancodados[] = { "andre","65434","1"} // O primeiro item é o usuario, o segundo a senha e o terceiro o tipo
+
+	funcao inicio()
+	{
+		inteiro idade
+		
+		faca
+		{
+			escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
+      escreva("Usuario: ")
+      leia(usuario)
+      escreva("Senha: ")
+      leia(senha)
+
+				se (usuario == bancodados[0] e senha == bancodados[1])
+				{escreva("entrada OK")
+				Util.aguarde(1000)
+        
+        // Se o usuario for um usuario do governo abrirá o menu_governo, caso o usuario seja um imigrante abrirá o menu_imigrante
+        // Aqui deveria se conectar ao banco de dados
+		
+					se 
+					(bancodados[2] == "1")
+					{        
+						escreva("menu_governo")
+						Util.aguarde(2000)
+					}
+
+					se 
+					(bancodados[2] == "2")
+					{
+						escreva("menu_imigrante")
+						Util.aguarde(2000)
+					}
+
+				}
+
+					senao{        
+						escreva("Dados nao encontrados no sistema, verifique os dados e tente novamente")
+						Util.aguarde(2000)
+						limpa()
+					}
+
+			}
+		enquanto (infinito < 2)
+		
+		// A partir deste ponto do código é garantido que a idade 
+		// terá um valor válido e não causará erros inesperados		
+
+		escreva ("\nCorreto!\n")
+	}
+}
+
