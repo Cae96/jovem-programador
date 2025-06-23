@@ -12,10 +12,17 @@ programa
 
 	funcao inicio()
 	{
+		telainicial()
+		
+		}
+
+	funcao login()
+	{
 		inteiro idade
 		inteiro tamanho = Util.numero_elementos(bancoUsuario), auxiliar = 0
 
 		escreva(tamanho)
+		limpa()
 			
 		faca
 		{
@@ -68,5 +75,47 @@ programa
 		
 		escreva ("\nCorreto!\n")
 	}
+
+	funcao telainicial()
+	{
+		cadeia entrada
+
+		faca{
+		
+		escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
+		escreva("Bem vindo ao portal de atendimento ao imigrante, informacoes...\n")
+		escreva("O que deseja fazer?\n")
+		escreva("1 - Cadastro\n")
+		escreva("2 - Log in\n")
+		leia(entrada)
+
+				se 
+				(entrada == "1")
+				{   
+					escreva("Cadastro")
+				}
+					
+				se 
+				(entrada == "2")
+				{
+						login()
+					Util.aguarde(2000)
+				}
+
+
+				senao
+				{        
+					escreva("Opcao invalida, elija o numero adequado")
+					Util.aguarde(2000)
+					limpa()
+				}
+
+		}
+		enquanto (infinito < 2)	
+		escreva("")
+		
+		
+	}
+	
 }
 
