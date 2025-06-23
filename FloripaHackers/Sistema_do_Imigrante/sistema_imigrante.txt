@@ -5,13 +5,15 @@ programa
   inclua biblioteca Util  // importando funcao util
 
 	cadeia usuario,senha
-	inteiro infinito =1
+	inteiro infinito = 1
 	cadeia bancoUsuario[] = { "andre","luis"}
 	cadeia bancoSenha[] = {"1234","6789"}
 	cadeia bancoUsuarioTipo[] = {"1","2"}
 
 	funcao inicio()
 	{
+
+
 		telainicial()
 		
 		}
@@ -27,19 +29,30 @@ programa
 		faca
 		{
 			escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
-      escreva("Usuario: ")
-      leia(usuario)
-      escreva("Senha: ")
-      leia(senha)
-
+			escreva("Para retornar ao site original digite 'q' e enter\n")
+		     escreva("Usuario: ")
+		     leia(usuario)
+		     se 
+				(usuario == "q")
+				{
+					escreva ("Retornando a pagina inicial!\n")
+					Util.aguarde(1000)	
+					limpa()
+					pare
+				}
+		     escreva("Senha: ")
+		     leia(senha)
+			
 			para (inteiro posicao = 0; posicao < tamanho; posicao++)
 				{
 				se (usuario ==	bancoUsuario[posicao])
 				{auxiliar = posicao
 				}
+			
 				senao
 				{}
 				}
+				
 		
 			se (usuario == bancoUsuario[auxiliar] e senha == bancoSenha[auxiliar])
 			{escreva("entrada OK")
@@ -55,7 +68,7 @@ programa
 					Util.aguarde(2000)
 				}
 
-				se 
+				senao se 
 				(bancoUsuarioTipo[auxiliar] == "2")
 				{
 					escreva("menu_imigrante")
@@ -71,9 +84,8 @@ programa
 				}
 
 			}
-		enquanto (infinito < 2)
+		enquanto (usuario != "q")
 		
-		escreva ("\nCorreto!\n")
 	}
 
 	funcao telainicial()
@@ -81,7 +93,7 @@ programa
 		cadeia entrada
 
 		faca{
-		
+
 		escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
 		escreva("Bem vindo ao portal de atendimento ao imigrante, informacoes...\n")
 		escreva("O que deseja fazer?\n")
@@ -92,14 +104,14 @@ programa
 				se 
 				(entrada == "1")
 				{   
-					escreva("Cadastro")
+					cadastro()
 				}
+
 					
-				se 
+				senao se 
 				(entrada == "2")
 				{
-						login()
-					Util.aguarde(2000)
+					login()
 				}
 
 
@@ -111,11 +123,51 @@ programa
 				}
 
 		}
-		enquanto (infinito < 2)	
-		escreva("")
-		
+		enquanto (infinito < 2)			
 		
 	}
+
+		funcao cadastro()
+		{
+
+		cadeia nome, sobrenome, email, senha
+
+		limpa()
+		escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
+		escreva("Escolha um nome de usuario: ")
+		leia(usuario)
+		consultar()
+		escreva("Qual seu primeiro nome? ")
+		leia(nome)
+		escreva("Qual seu sobrenome? ")
+		leia(sobrenome)
+		escreva("Qual seu email? ")
+		leia(email)
+		escreva("Digite sua senha: ")
+		leia(senha)
+
+		}
+
+		funcao consultar()
+		{
+		inteiro tamanho = Util.numero_elementos(bancoUsuario), auxiliar = 0
+
+		para (inteiro posicao = 0; posicao < tamanho; posicao++)
+				{
+				se (usuario ==	bancoUsuario[posicao])
+				{
+					escreva("Usuario já cadastrado\n")
+				}
+			
+				senao
+				{
+				escreva("Usuario OK\n")
+				pare
+				}
+				}
+				
+		}
+		
 	
 }
 
