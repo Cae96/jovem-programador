@@ -3,12 +3,14 @@ programa
 {
 
   inclua biblioteca Util  // importando funcao util
+  inclua biblioteca Texto // importando funcao texto
 
 	cadeia usuario,senha
 	inteiro infinito = 1
 	cadeia bancoUsuario[] = { "andre","luis"}
 	cadeia bancoSenha[] = {"1234","6789"}
 	cadeia bancoUsuarioTipo[] = {"1","2"}
+	cadeia bancoEmail[] = {"andre@outlook.com","luiska@gmail.com"}
 
 	funcao inicio()
 	{
@@ -134,9 +136,9 @@ programa
 
 		limpa()
 		escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
-		escreva("Escolha um nome de usuario: ")
-		leia(usuario)
-		consultar()
+		// escreva("Escolha um nome de usuario: ")
+		// leia(usuario)
+		consultarnome() // Validará o nome de usuario
 		escreva("Qual seu primeiro nome? ")
 		leia(nome)
 		escreva("Qual seu sobrenome? ")
@@ -148,24 +150,45 @@ programa
 
 		}
 
-		funcao consultar()
+		funcao consultarnome()
 		{
-		inteiro tamanho = Util.numero_elementos(bancoUsuario), auxiliar = 0
+				
+		inteiro tamanho = Util.numero_elementos(bancoUsuario), check = 0
 
-		para (inteiro posicao = 0; posicao < tamanho; posicao++)
+		faca{
+
+		
+		escreva("Escolha um nome de usuario: ")
+		leia(usuario)
+		check = 0
+
+		se (usuario !="")
+		{
+			para (inteiro posicao = 0; posicao < tamanho; posicao++)
 				{
 				se (usuario ==	bancoUsuario[posicao])
 				{
-					escreva("Usuario já cadastrado\n")
+					check = 1
+					pare
 				}
-			
-				senao
-				{
+				}
+			se (check == 1)
+			{
+				escreva("Nome de usuario ja utilizado\n")
+			}
+			senao
+			{
 				escreva("Usuario OK\n")
-				pare
-				}
-				}
-				
+			}	
+		}
+		senao
+		{
+			check = 1
+			escreva("O campo deve ser preenchido com minimo 4 caracteres\n")
+		}
+		}
+		enquanto (check ==1)
+		
 		}
 		
 	
