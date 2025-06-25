@@ -43,7 +43,7 @@ programa
 		}
 		}
 		mediafinal = somatotal / (alunos * 3) // Cáculo da média geral da turma, que é a soma total de todas a notas dividido pela mutiplicação do números de alunos por 3 e atribuido o resultado a variável
-		escreva("\n A media final da turma foi: ", mat.arredondar(mediafinal,2)) // Saída do resultado da média da turma 
+		escreva("\n A media final da turma foi: ", mat.arredondar(mediafinal,2)) 
 	}
 }
 
