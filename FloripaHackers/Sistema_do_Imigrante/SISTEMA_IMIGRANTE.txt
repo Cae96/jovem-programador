@@ -1,0 +1,203 @@
+programa
+{
+
+  inclua biblioteca Util  // importando funcao util
+  inclua biblioteca Texto // importando funcao texto
+
+	cadeia usuario,senha
+	inteiro infinito = 1
+	cadeia bancoUsuario[] = { "andre","luis"}
+	cadeia bancoSenha[] = {"1234","6789"}
+	cadeia bancoUsuarioTipo[] = {"1","2"}
+	cadeia bancoEmail[] = {"andre@outlook.com","luiska@gmail.com"}
+
+	funcao inicio()
+	{
+
+
+		telainicial()
+		
+		}
+
+	funcao login()
+	{
+		inteiro idade
+		inteiro tamanho = Util.numero_elementos(bancoUsuario), auxiliar = 0
+
+		escreva(tamanho)
+		limpa()
+			
+		faca
+		{
+			escreva("-----------------------------------------------------")
+      escreva("\nSISTEMA DE APOIO AO IMIGRANTE - BRASIL\n")
+      escreva("-----------------------------------------------------\n")
+			escreva("Para retornar ao site original digite 'q' e enter\n")
+		     escreva("Usuario: ")
+		     leia(usuario)
+		     se 
+				(usuario == "q")
+				{
+					escreva ("Retornando a pagina inicial!\n")
+					Util.aguarde(1000)	
+					limpa()
+					pare
+				}
+		     escreva("Senha: ")
+		     leia(senha)
+			
+			para (inteiro posicao = 0; posicao < tamanho; posicao++)
+				{
+				se (usuario ==	bancoUsuario[posicao])
+				{auxiliar = posicao
+				}
+			
+				senao
+				{}
+				}
+				
+		
+			se (usuario == bancoUsuario[auxiliar] e senha == bancoSenha[auxiliar])
+			{escreva("entrada OK")
+			Util.aguarde(1000)
+   
+   // Se o usuario for um usuario do governo abrirá o menu_governo, caso o usuario seja um imigrante abrirá o menu_imigrante
+   // Aqui deveria se conectar ao banco de dados
+	
+				se 
+				(bancoUsuarioTipo[auxiliar] == "1")
+				{        
+					escreva("menu_governo")
+					Util.aguarde(2000)
+				}
+
+				senao se 
+				(bancoUsuarioTipo[auxiliar] == "2")
+				{
+					escreva("menu_imigrante")
+					Util.aguarde(2000)
+				}
+
+			}
+
+				senao{        
+					escreva("Dados nao encontrados no sistema, verifique os dados e tente novamente")
+					Util.aguarde(2000)
+					limpa()
+				}
+
+			}
+		enquanto (usuario != "q")
+		
+	}
+
+	funcao telainicial()
+	{
+		cadeia entrada
+
+		faca{
+
+		escreva("-----------------------------------------------------")
+    escreva("\n     SISTEMA DE APOIO AO IMIGRANTE - BRASIL\n")
+    escreva("-----------------------------------------------------\t")
+		escreva("\n Olá! Bem-vindo(a) ao Portal de Apoio ao Imigrante.\nAqui você pode encontrar ajuda com:\n")
+    escreva("\n Documentos de imigração e regularização\n")
+    escreva(" Moradia e trabalho\n")
+		escreva("O que deseja fazer?\n")
+		escreva("1 - Cadastro\n")
+		escreva("2 - Log in\n")
+    escreva("3 - Acesso a informação\n")
+		leia(entrada)
+
+				se 
+				(entrada == "1")
+				{   
+					cadastro()
+				}
+
+					
+				senao se 
+				(entrada == "2")
+				{
+					login()
+				}
+
+
+				senao
+				{        
+					escreva("Opcao invalida, elija o numero adequado")
+					Util.aguarde(2000)
+					limpa()
+				}
+
+		}
+		enquanto (infinito < 2)			
+		
+	}
+
+		funcao cadastro()
+		{
+
+		cadeia nome, sobrenome, email, senha
+
+		limpa()
+		escreva("-----------------------------------------------------")
+    escreva("\n     SISTEMA DE APOIO AO IMIGRANTE - BRASIL\n")
+    escreva("-----------------------------------------------------\n")
+		// escreva("Escolha um nome de usuario: ")
+		// leia(usuario)
+		consultarnome() // Validará o nome de usuario
+		escreva("Qual seu primeiro nome? ")
+		leia(nome)
+		escreva("Qual seu sobrenome? ")
+		leia(sobrenome)
+		escreva("Qual seu email? ")
+		leia(email)
+		escreva("Digite sua senha: ")
+		leia(senha)
+
+		}
+
+		funcao consultarnome()
+		{
+				
+		inteiro tamanho = Util.numero_elementos(bancoUsuario), check = 0
+
+		faca{
+
+		
+		escreva("Escolha um nome de usuario: ")
+		leia(usuario)
+		check = 0
+
+		se (usuario !="")
+		{
+			para (inteiro posicao = 0; posicao < tamanho; posicao++)
+				{
+				se (usuario ==	bancoUsuario[posicao])
+				{
+					check = 1
+					pare
+				}
+				}
+			se (check == 1)
+			{
+				escreva("Nome de usuario ja utilizado\n")
+			}
+			senao
+			{
+				escreva("Usuario OK\n")
+			}	
+		}
+		senao
+		{
+			check = 1
+			escreva("O campo deve ser preenchido com minimo 4 caracteres\n")
+		}
+		}
+		enquanto (check ==1)
+		
+		}
+		
+	
+}
