@@ -6,25 +6,30 @@ programa
 
 	cadeia usuario,senha
 	inteiro infinito = 1
-	cadeia bancoUsuario[100][4]
-	inteiro tamanho = 100 // Deve ser colocado o mesmo numero de linhas que o vetor bancoUsuario
+	const inteiro tamanho = 100 // Deve ser colocado o mesmo numero de linhas que o vetor bancoUsuario
+	cadeia bancoUsuario[tamanho][8]
+	 
 
 	inteiro posicaoAuxiliar = 0
 
-	funcao criarUsuario(cadeia nome, cadeia password, cadeia tipo, cadeia email)
+	funcao criarUsuario(cadeia nome, cadeia password, cadeia tipo, cadeia nomecompleto, cadeia dt_nascimento, cadeia nacionalidade, cadeia doc_identificacao, cadeia email)
 	{
-		 posicaoAuxiliar = localizacao()
-		 bancoUsuario[posicaoAuxiliar][0] = nome
-		 bancoUsuario[posicaoAuxiliar][1] = password
-		 bancoUsuario[posicaoAuxiliar][2] = tipo
-		 bancoUsuario[posicaoAuxiliar][3] = email
+		posicaoAuxiliar = localizacao()
+		bancoUsuario[posicaoAuxiliar][0] = nome
+		bancoUsuario[posicaoAuxiliar][1] = password
+		bancoUsuario[posicaoAuxiliar][2] = tipo
+		bancoUsuario[posicaoAuxiliar][3] = nomecompleto
+		bancoUsuario[posicaoAuxiliar][4] = dt_nascimento
+		bancoUsuario[posicaoAuxiliar][5] = nacionalidade
+		bancoUsuario[posicaoAuxiliar][6] = doc_identificacao
+		bancoUsuario[posicaoAuxiliar][7] = email
 	}
 	
 
 	funcao inicio()
 	{		
-		criarUsuario("andre", "1234", "1", "andre@outlook.com")
-		criarUsuario("luis", "6789", "2", "luiskare@gmail.com")
+		criarUsuario("andre", "1234", "1","Andre da Silva","25/05/1990","AN","6890Y56","andre@outlook.com")
+		criarUsuario("luis", "6789", "2","Luis Wagner Britt","14/11/2000","BO","098567930" ,"luiskare@gmail.com")
 		telainicial()
 		
 	}
@@ -153,7 +158,7 @@ programa
 	funcao cadastro()
 	{
 
-		cadeia nome, sobrenome, email
+		cadeia nomecompleto, email, dt_nascimento, nacionalidade, doc_identificacao
 		inteiro check = 0
 
 		limpa()
@@ -161,19 +166,29 @@ programa
 		// escreva("Escolha um nome de usuario: ")
 		// leia(usuario)
 		consultarnome() // Validará o nome de usuario
-		escreva("Qual seu primeiro nome? ")
-		leia(nome)
-		escreva("Qual seu sobrenome? ")
-		leia(sobrenome)
+		consultarsenha()
+		escreva("Qual seu nome completo? ")
+		leia(nomecompleto)
+		escreva("Qual sua data de nascimento? DD/MM/YYYY ")
+		leia(dt_nascimento)
+		escreva("Qual sua nacionalidade? ")
+		leia(nacionalidade)
+		escreva("Qual o numero/codigo do seu documento de identificação? ")
+		leia(doc_identificacao)
 		escreva("Qual seu email? ")
 		leia(email)
-		consultarsenha()
+		
 
 		// Adiciona os dados ao banco de dados
 		posicaoAuxiliar = localizacao()
 		bancoUsuario[posicaoAuxiliar][0] = usuario
 		bancoUsuario[posicaoAuxiliar][1] = senha
 		bancoUsuario[posicaoAuxiliar][2] = "2" // Deve ser sempre assignado o numero 2, pois é um cadastro de Imigrante
+		bancoUsuario[posicaoAuxiliar][3] = nomecompleto
+		bancoUsuario[posicaoAuxiliar][4] = dt_nascimento
+		bancoUsuario[posicaoAuxiliar][5] = nacionalidade
+		bancoUsuario[posicaoAuxiliar][6] = doc_identificacao
+		bancoUsuario[posicaoAuxiliar][7] = email
 		
 
 	}
@@ -231,7 +246,7 @@ programa
 
 		se (senha !="" e resposta >= 4) //garantir que a senha nao seja em branco e adicionar depois quantidade minima de caracteres
 			{
-				escreva("Senha OK")
+				escreva("Senha OK\n")
 				check = 1
 			}
 		senao
