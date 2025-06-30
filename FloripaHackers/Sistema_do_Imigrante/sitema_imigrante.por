@@ -6,53 +6,33 @@ programa
 
 	cadeia usuario,senha
 	inteiro infinito = 1
-	cadeia bancoUsuario[100], bancoSenha[100], bancoUsuarioTipo[100]
-	cadeia usuariosIniciais[] = { "andre","luis"}
-	cadeia senhasIniciais[] = {"1234","6789"}
-	cadeia tiposIniciais[] = {"1","2"}
-	cadeia bancoEmail[] = {"andre@outlook.com","luiska@gmail.com"}
-	inteiro auxiliarVetor = 0
+	cadeia bancoUsuario[100][4]
+	inteiro tamanho = 100 // Deve ser colocado o mesmo numero de linhas que o vetor bancoUsuario
+
+	inteiro posicaoAuxiliar = 0
+
+	funcao criarUsuario(cadeia nome, cadeia password, cadeia tipo, cadeia email)
+	{
+		 posicaoAuxiliar = localizacao()
+		 bancoUsuario[posicaoAuxiliar][0] = nome
+		 bancoUsuario[posicaoAuxiliar][1] = password
+		 bancoUsuario[posicaoAuxiliar][2] = tipo
+		 bancoUsuario[posicaoAuxiliar][3] = email
+	}
+	
 
 	funcao inicio()
-	{
-
-		assignarDadosIniciais()
+	{		
+		criarUsuario("andre", "1234", "1", "andre@outlook.com")
+		criarUsuario("luis", "6789", "2", "luiskare@gmail.com")
 		telainicial()
 		
-		}
-
-	funcao tamanhoVetor()
-	{
-		inteiro tamanho = Util.numero_elementos(bancoUsuario), check = 0
-
-		para (inteiro posicao = 0; posicao < tamanho; posicao++)
-		{
-			se (bancoUsuario[posicao] !="")
-			{
-				auxiliarVetor = posicao
-				pare
-			}
-		}
-	}
-
-	funcao assignarDadosIniciais()
-	{
-		inteiro posicao = 0, tamanho = Util.numero_elementos(usuariosIniciais), auxiliar = 0
-		
-		para (posicao = 0; posicao < tamanho; posicao++)
-		{
-			bancoUsuario[posicao] = usuariosIniciais[posicao]
-			bancoSenha[posicao] = senhasIniciais[posicao]
-			bancoUsuarioTipo[posicao] = tiposIniciais[posicao]
-		}
-		
-				
 	}
 		
 	funcao login()
 	{
 		inteiro idade
-		inteiro tamanho = Util.numero_elementos(bancoUsuario), auxiliar = 0
+		inteiro auxiliar = 0
 
 		limpa()
 			
@@ -75,7 +55,7 @@ programa
 			
 			para (inteiro posicao = 0; posicao < tamanho; posicao++)
 				{
-				se (usuario ==	bancoUsuario[posicao])
+				se (usuario ==	bancoUsuario[posicao][0])
 				{auxiliar = posicao
 				}
 			
@@ -84,7 +64,7 @@ programa
 				}
 				
 		
-			se (usuario == bancoUsuario[auxiliar] e senha == bancoSenha[auxiliar])
+			se (usuario == bancoUsuario[auxiliar][0] e senha == bancoUsuario[auxiliar][1])
 			{escreva("entrada OK")
 			Util.aguarde(1000)
    
@@ -92,14 +72,14 @@ programa
    // Aqui deveria se conectar ao banco de dados
 	
 				se 
-				(bancoUsuarioTipo[auxiliar] == "1")
+				(bancoUsuario[auxiliar][2] == "1")
 				{        
 					escreva("menu_governo")
 					Util.aguarde(2000)
 				}
 
 				senao se 
-				(bancoUsuarioTipo[auxiliar] == "2")
+				(bancoUsuario[auxiliar][2] == "2")
 				{
 					escreva("menu_imigrante")
 					Util.aguarde(2000)
@@ -157,11 +137,24 @@ programa
 		
 	}
 
+	funcao inteiro localizacao()
+	{
+
+		para (inteiro posicao = 0; posicao < tamanho; posicao++)
+		{
+			se (bancoUsuario[posicao][0] =="")
+			{
+				retorne posicao
+			}
+		}
+		retorne -1
+	}
+
 	funcao cadastro()
 	{
 
 		cadeia nome, sobrenome, email
-		inteiro tamanho = Util.numero_elementos(bancoUsuario), check = 0
+		inteiro check = 0
 
 		limpa()
 		escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
@@ -177,10 +170,10 @@ programa
 		consultarsenha()
 
 		// Adiciona os dados ao banco de dados
-		tamanhoVetor()
-		bancoUsuario[auxiliarVetor] = usuario
-		bancoSenha[auxiliarVetor] = senha
-		bancoUsuarioTipo[auxiliarVetor] = "2" // Deve ser sempre assignado o numero 2, pois é um cadastro de Imigrante
+		posicaoAuxiliar = localizacao()
+		bancoUsuario[posicaoAuxiliar][0] = usuario
+		bancoUsuario[posicaoAuxiliar][1] = senha
+		bancoUsuario[posicaoAuxiliar][2] = "2" // Deve ser sempre assignado o numero 2, pois é um cadastro de Imigrante
 		
 
 	}
@@ -188,7 +181,7 @@ programa
 	funcao consultarnome()
 	{
 				
-		inteiro tamanho = Util.numero_elementos(bancoUsuario), check = 0
+		inteiro check = 0
 
 		faca{
 
@@ -196,12 +189,13 @@ programa
 		escreva("Escolha um nome de usuario: ")
 		leia(usuario)
 		check = 0
+		inteiro resposta = Texto.numero_caracteres(usuario)
 
-		se (usuario !="")
+		se (usuario !="" e resposta >= 4)
 		{
 			para (inteiro posicao = 0; posicao < tamanho; posicao++)
 				{
-				se (usuario ==	bancoUsuario[posicao])
+				se (usuario ==	bancoUsuario[posicao][0])
 				{
 					check = 1
 					pare
