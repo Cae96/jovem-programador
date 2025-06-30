@@ -6,32 +6,59 @@ programa
 
 	cadeia usuario,senha
 	inteiro infinito = 1
-	cadeia bancoUsuario[] = { "andre","luis"}
-	cadeia bancoSenha[] = {"1234","6789"}
-	cadeia bancoUsuarioTipo[] = {"1","2"}
+	cadeia bancoUsuario[100], bancoSenha[100], bancoUsuarioTipo[100]
+	cadeia usuariosIniciais[] = { "andre","luis"}
+	cadeia senhasIniciais[] = {"1234","6789"}
+	cadeia tiposIniciais[] = {"1","2"}
 	cadeia bancoEmail[] = {"andre@outlook.com","luiska@gmail.com"}
+	inteiro auxiliarVetor = 0
 
 	funcao inicio()
 	{
 
-
+		assignarDadosIniciais()
 		telainicial()
 		
 		}
 
+	funcao tamanhoVetor()
+	{
+		inteiro tamanho = Util.numero_elementos(bancoUsuario), check = 0
+
+		para (inteiro posicao = 0; posicao < tamanho; posicao++)
+		{
+			se (bancoUsuario[posicao] !="")
+			{
+				auxiliarVetor = posicao
+				pare
+			}
+		}
+	}
+
+	funcao assignarDadosIniciais()
+	{
+		inteiro posicao = 0, tamanho = Util.numero_elementos(usuariosIniciais), auxiliar = 0
+		
+		para (posicao = 0; posicao < tamanho; posicao++)
+		{
+			bancoUsuario[posicao] = usuariosIniciais[posicao]
+			bancoSenha[posicao] = senhasIniciais[posicao]
+			bancoUsuarioTipo[posicao] = tiposIniciais[posicao]
+		}
+		
+				
+	}
+		
 	funcao login()
 	{
 		inteiro idade
 		inteiro tamanho = Util.numero_elementos(bancoUsuario), auxiliar = 0
 
-		escreva(tamanho)
 		limpa()
 			
 		faca
 		{
-			escreva("-----------------------------------------------------")
-      escreva("\nSISTEMA DE APOIO AO IMIGRANTE - BRASIL\n")
-      escreva("-----------------------------------------------------\n")
+			escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
 			escreva("Para retornar ao site original digite 'q' e enter\n")
 		     escreva("Usuario: ")
 		     leia(usuario)
@@ -97,16 +124,11 @@ programa
 
 		faca{
 
-		escreva("-----------------------------------------------------")
-    escreva("\n     SISTEMA DE APOIO AO IMIGRANTE - BRASIL\n")
-    escreva("-----------------------------------------------------\t")
-		escreva("\n Olá! Bem-vindo(a) ao Portal de Apoio ao Imigrante.\nAqui você pode encontrar ajuda com:\n")
-    escreva("\n Documentos de imigração e regularização\n")
-    escreva(" Moradia e trabalho\n")
+		escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
+		escreva("Bem vindo ao portal de atendimento ao imigrante, informacoes...\n")
 		escreva("O que deseja fazer?\n")
 		escreva("1 - Cadastro\n")
 		escreva("2 - Log in\n")
-    escreva("3 - Acesso a informação\n")
 		leia(entrada)
 
 				se 
@@ -135,15 +157,14 @@ programa
 		
 	}
 
-		funcao cadastro()
-		{
+	funcao cadastro()
+	{
 
-		cadeia nome, sobrenome, email, senha
+		cadeia nome, sobrenome, email
+		inteiro tamanho = Util.numero_elementos(bancoUsuario), check = 0
 
 		limpa()
-		escreva("-----------------------------------------------------")
-    escreva("\n     SISTEMA DE APOIO AO IMIGRANTE - BRASIL\n")
-    escreva("-----------------------------------------------------\n")
+		escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
 		// escreva("Escolha um nome de usuario: ")
 		// leia(usuario)
 		consultarnome() // Validará o nome de usuario
@@ -153,13 +174,19 @@ programa
 		leia(sobrenome)
 		escreva("Qual seu email? ")
 		leia(email)
-		escreva("Digite sua senha: ")
-		leia(senha)
+		consultarsenha()
 
-		}
+		// Adiciona os dados ao banco de dados
+		tamanhoVetor()
+		bancoUsuario[auxiliarVetor] = usuario
+		bancoSenha[auxiliarVetor] = senha
+		bancoUsuarioTipo[auxiliarVetor] = "2" // Deve ser sempre assignado o numero 2, pois é um cadastro de Imigrante
+		
 
-		funcao consultarnome()
-		{
+	}
+
+	funcao consultarnome()
+	{
 				
 		inteiro tamanho = Util.numero_elementos(bancoUsuario), check = 0
 
@@ -196,8 +223,31 @@ programa
 		}
 		}
 		enquanto (check ==1)
+
 		
+	}
+		
+	funcao consultarsenha()
+	{
+		inteiro check = 0
+		faca{
+		escreva("Escolha uma senha: ")
+		leia(senha)
+		inteiro resposta = Texto.numero_caracteres(senha)
+
+		se (senha !="" e resposta >= 4) //garantir que a senha nao seja em branco e adicionar depois quantidade minima de caracteres
+			{
+				escreva("Senha OK")
+				check = 1
+			}
+		senao
+		{
+			escreva("Voce deve escolher uma senha com pelo menos 4 caracteres\n")
 		}
-		
+			}
+		enquanto (check ==0)
 	
+			
+	}
+		
 }
