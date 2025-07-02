@@ -3,6 +3,7 @@ programa
 
   inclua biblioteca Util  // importando funcao util
   inclua biblioteca Texto // importando funcao texto
+  inclua biblioteca Tipos
 
 	cadeia usuario,senha, email, dtnascimento
 	inteiro infinito = 1
@@ -259,9 +260,9 @@ programa
 		enquanto (check ==1)
 	}
 
-	funcao cadeia ehnumero(cadeia b)
+	funcao cadeia ehnumero(cadeia a)
 	{
-		se (b == "0" ou b == "1" ou b == "2" ou b == "3" ou b == "4" ou b == "5" ou b == "6" ou b == "7" ou b == "8" ou b == "9")
+		se (a == "0" ou a == "1" ou a == "2" ou a == "3" ou a == "4" ou a == "5" ou a == "6" ou a == "7" ou a == "8" ou a == "9")
 		{
 			retorne "valido"
 		}
@@ -301,21 +302,35 @@ programa
 
 			
 
-				se((((a=="0" ou a=="1") e ehnumero(b)=="valido") ou (a=="3" e (b=="0" ou b=="1"))) e
-				c=="/" e
-				((d =="0" e ehnumero(ee)=="valido" e ee!="0")  ou (d=="1" e (ee=="0" ou ee=="1" ou ee=="2"))) e
-				f=="/" e
-				(g=="1" ou g=="2") e
-				(h=="9" ou h=="0") e 
-				ehnumero(i)=="valido" e
-				ehnumero(j)=="valido") 
-				// Valida as datas de nascimento, aceito desde 1900 ate 2099 - Falhas do codigo: o codigo nao valida datas no futuro, tambem pode ter erro para dias 31 nos meses de dias inferiores
+				se(ehnumero(a)=="falso" ou ehnumero(b)=="falso" ou c!="/" ou ehnumero(d)=="falso" ou ehnumero(ee)=="falso" ou f!="/" ou ehnumero(g)=="falso" ou ehnumero(h)=="falso" ou ehnumero(i)=="falso" ou 
+				ehnumero(j)=="falso")
 				{
-					check = 1
+					escreva("formato invalido, tente novamente\n")
 				}
 				senao
 				{
-					escreva("formato invalido, tente novamente\n")
+					inteiro dia = Tipos.cadeia_para_real(Texto.extrair_subtexto(dtnascimento,0,2))
+					inteiro mes = Tipos.cadeia_para_real(Texto.extrair_subtexto(dtnascimento,4,5))
+					inteiro ano = Tipos.cadeia_para_real(Texto.extrair_subtexto(dtnascimento,6,10))
+					escreva(dia)
+					escreva(mes)
+					escreva(ano)
+					se (0<mes<=12)
+					{
+						se(mes==2)
+						se(mes=1 ou mes=3 ou mes=5 ou mes=7 ou mes=8 ou mes=10 ou mes=12)
+						{
+							se(dia<=31)
+							{
+							check =1
+							}
+						senao se(mes=
+						} 
+					}
+					}
+					{
+						
+					}
 				}
 			}
 			
