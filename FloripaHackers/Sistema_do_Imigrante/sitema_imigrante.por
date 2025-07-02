@@ -4,7 +4,7 @@ programa
   inclua biblioteca Util  // importando funcao util
   inclua biblioteca Texto // importando funcao texto
 
-	cadeia usuario,senha
+	cadeia usuario,senha, email
 	inteiro infinito = 1
 	const inteiro tamanho = 100 // Deve ser colocado o mesmo numero de linhas que o vetor bancoUsuario
 	cadeia bancoUsuario[tamanho][8]
@@ -12,7 +12,7 @@ programa
 
 	inteiro posicaoAuxiliar = 0
 
-	funcao criarUsuario(cadeia nome, cadeia password, cadeia tipo, cadeia nomecompleto, cadeia dt_nascimento, cadeia nacionalidade, cadeia doc_identificacao, cadeia email)
+	funcao criarUsuario(cadeia nome, cadeia password, cadeia tipo, cadeia nomecompleto, cadeia dt_nascimento, cadeia nacionalidade, cadeia doc_identificacao, cadeia email2)
 	{
 		posicaoAuxiliar = localizacao()
 		bancoUsuario[posicaoAuxiliar][0] = nome
@@ -22,7 +22,7 @@ programa
 		bancoUsuario[posicaoAuxiliar][4] = dt_nascimento
 		bancoUsuario[posicaoAuxiliar][5] = nacionalidade
 		bancoUsuario[posicaoAuxiliar][6] = doc_identificacao
-		bancoUsuario[posicaoAuxiliar][7] = email
+		bancoUsuario[posicaoAuxiliar][7] = email2
 	}
 	
 
@@ -155,44 +155,6 @@ programa
 		retorne -1
 	}
 
-	funcao cadastro()
-	{
-
-		cadeia nomecompleto, email, dt_nascimento, nacionalidade, doc_identificacao
-		inteiro check = 0
-
-		limpa()
-		escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
-		// escreva("Escolha um nome de usuario: ")
-		// leia(usuario)
-		consultarnome() // Validará o nome de usuario
-		consultarsenha()
-		escreva("Qual seu nome completo? ")
-		leia(nomecompleto)
-		escreva("Qual sua data de nascimento? DD/MM/YYYY ")
-		leia(dt_nascimento)
-		escreva("Qual sua nacionalidade? ")
-		leia(nacionalidade)
-		escreva("Qual o numero/codigo do seu documento de identificação? ")
-		leia(doc_identificacao)
-		escreva("Qual seu email? ")
-		leia(email)
-		
-
-		// Adiciona os dados ao banco de dados
-		posicaoAuxiliar = localizacao()
-		bancoUsuario[posicaoAuxiliar][0] = usuario
-		bancoUsuario[posicaoAuxiliar][1] = senha
-		bancoUsuario[posicaoAuxiliar][2] = "2" // Deve ser sempre assignado o numero 2, pois é um cadastro de Imigrante
-		bancoUsuario[posicaoAuxiliar][3] = nomecompleto
-		bancoUsuario[posicaoAuxiliar][4] = dt_nascimento
-		bancoUsuario[posicaoAuxiliar][5] = nacionalidade
-		bancoUsuario[posicaoAuxiliar][6] = doc_identificacao
-		bancoUsuario[posicaoAuxiliar][7] = email
-		
-
-	}
-
 	funcao consultarnome()
 	{
 				
@@ -258,5 +220,79 @@ programa
 	
 			
 	}
-		
+
+	funcao consultaremail()
+	{
+		inteiro check = 0
+
+		faca
+		{
+		escreva("Digite seu email (caso nao tenha email deixe o campo em branco): ")
+		leia(email)
+		check = 0
+		inteiro resposta = Texto.numero_caracteres(usuario)
+
+			se (email == "") 
+			{
+			pare
+			}
+			senao
+			{
+				para (inteiro posicao = 0; posicao < tamanho; posicao++)
+				{
+				se (email ==	bancoUsuario[posicao][7])
+				{
+					check = 1
+					pare
+				}
+			}
+			
+				}
+			se (check == 1)
+			{
+				escreva("Email já utilizado, escolha outro\n")
+			}
+			senao
+			{
+				escreva("Email OK\n")
+			}	
+		}
+		enquanto (check ==1)
+	}
+
+	funcao cadastro()
+	{
+
+	cadeia nomecompleto, dt_nascimento, nacionalidade, doc_identificacao
+	inteiro check = 0
+
+	limpa()
+	escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
+	// escreva("Escolha um nome de usuario: ")
+	// leia(usuario)
+	consultarnome() // Validará o nome de usuario
+	consultarsenha()
+	escreva("Qual seu nome completo? ")
+	leia(nomecompleto)
+	escreva("Qual sua data de nascimento? DD/MM/YYYY ")
+	leia(dt_nascimento)
+	escreva("Qual sua nacionalidade? ")
+	leia(nacionalidade)
+	escreva("Qual o numero/codigo do seu documento de identificação? ")
+	leia(doc_identificacao)
+	consultaremail()
+	
+
+	// Adiciona os dados ao banco de dados
+	posicaoAuxiliar = localizacao()
+	bancoUsuario[posicaoAuxiliar][0] = usuario
+	bancoUsuario[posicaoAuxiliar][1] = senha
+	bancoUsuario[posicaoAuxiliar][2] = "2" // Deve ser sempre assignado o numero 2, pois é um cadastro de Imigrante
+	bancoUsuario[posicaoAuxiliar][3] = nomecompleto
+	bancoUsuario[posicaoAuxiliar][4] = dt_nascimento
+	bancoUsuario[posicaoAuxiliar][5] = nacionalidade
+	bancoUsuario[posicaoAuxiliar][6] = doc_identificacao
+	bancoUsuario[posicaoAuxiliar][7] = email
+	}		
+
 }
