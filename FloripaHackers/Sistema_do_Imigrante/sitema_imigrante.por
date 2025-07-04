@@ -312,25 +312,62 @@ programa
 					inteiro dia = Tipos.cadeia_para_real(Texto.extrair_subtexto(dtnascimento,0,2))
 					inteiro mes = Tipos.cadeia_para_real(Texto.extrair_subtexto(dtnascimento,4,5))
 					inteiro ano = Tipos.cadeia_para_real(Texto.extrair_subtexto(dtnascimento,6,10))
-					escreva(dia)
-					escreva(mes)
-					escreva(ano)
-					se (0<mes<=12)
+					
+					se (1920<=ano e ano<=2025)
 					{
-						se(mes==2)
-						se(mes=1 ou mes=3 ou mes=5 ou mes=7 ou mes=8 ou mes=10 ou mes=12)
+						se (0<mes e mes<=12)
 						{
-							se(dia<=31)
+							se(mes==2) // Validacoes para o mes de fevereiro
 							{
-							check =1
+								se((ano-4*(ano/4))==0) // Checa se o ano foi bissexto ou nao
+								{
+									se(dia<=29)
+									{
+										check=1
+									}
+									senao
+									{
+										escreva("Data invalida, tente novamente\n")	
+									}
+								}
+								senao
+								{
+									se(dia<=28) // Em caso de ano nao bissexto
+									{
+										check = 1
+									}
+									senao
+									{
+										escreva("Data invalida, tente novamente\n")	
+									}
+								}
 							}
-						senao se(mes=
-						} 
-					}
-					}
-					{
+							senao se(mes==1 ou mes==3 ou mes==5 ou mes==7 ou mes==8 ou mes==10 ou mes==12)
+							{
+								se(dia<=31)
+								{
+								check =1
+								}
+								senao
+								{
+									escreva("Data invalida, tente novamente\n")	
+								}
+							}
+							senao
+							{
+								se(dia<=30)
+								{
+									check=1
+								}
+								senao
+								{
+									escreva("Data invalida, tente novamente\n")	
+								}
+							}
 						
+						}
 					}
+
 				}
 			}
 			
