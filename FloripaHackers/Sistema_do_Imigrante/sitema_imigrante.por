@@ -5,7 +5,7 @@ programa
   inclua biblioteca Texto // importando funcao texto
   inclua biblioteca Tipos
 
-	cadeia usuario,senha, email, dtnascimento, pais
+	cadeia usuario,senha, email, dtnascimento, pais, nome
 	inteiro infinito = 1
 	const inteiro tamanho = 100 // Deve ser colocado o mesmo numero de linhas que o vetor bancoUsuario
 	cadeia bancoUsuario[tamanho][8]
@@ -73,13 +73,13 @@ programa
 			{escreva("entrada OK")
 			Util.aguarde(1000)
    
-   // Se o usuario for um usuario do governo abrirÃ¡ o menu_governo, caso o usuario seja um imigrante abrirÃ¡ o menu_imigrante
+   // Se o usuario for um usuario do governo abrirá o menu_governo, caso o usuario seja um imigrante abrirá o menu_imigrante
    // Aqui deveria se conectar ao banco de dados
 	
 				se 
 				(bancoUsuario[auxiliar][2] == "1")
 				{        
-					escreva("menu_governo")
+					menuGoverno()
 					Util.aguarde(2000)
 				}
 
@@ -109,8 +109,12 @@ programa
 
 		faca{
 
-		escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
-		escreva("Bem vindo ao portal de atendimento ao imigrante, informacoes...\n")
+		escreva("==========================================\n")
+		escreva(" \t\t     PORTAS ABERTAS   \n")
+		escreva(" Sistema de Apoio ao Imigrante\n")
+		escreva("==========================================\n")
+		escreva("Apoio para quem começa uma nova vida longe de casa\n")
+		escreva("Nosso objetivo é acolher, informar e conectar, para que você se sinta em casa, onde quer que esteja.")
 		escreva("O que deseja fazer?\n")
 		escreva("1 - Cadastro\n")
 		escreva("2 - Log in\n")
@@ -250,7 +254,7 @@ programa
 				}
 			se (check == 1)
 			{
-				escreva("Email jÃ¡ utilizado, escolha outro\n")
+				escreva("Email já utilizado, escolha outro\n")
 			}
 			senao
 			{
@@ -393,14 +397,14 @@ programa
 		"Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia (Plurinational State of)","Bonaire, Sint Eustatius and Saba",
 		"Bosnia and Herzegovina","Botswana","Bouvet Island","Brazil","British Indian Ocean Territory","Brunei Darussalam","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada",
 		"Cayman Islands","Central African Republic","Chad","Chile","China","Christmas Island","Cocos (Keeling) Islands","Colombia","Comoros","Congo","Congo (Democratic Republic of)","Cook Islands","Costa Rica",
-		"CÃ´te d'Ivoire","Croatia","Cuba","CuraÃ§ao","Cyprus","Czechia","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini",
+		"Côte d'Ivoire","Croatia","Cuba","Curaçao","Cyprus","Czechia","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini",
 		"Ethiopia","Falkland Islands (Malvinas)","Faroe Islands","Fiji","Finland","France","French Guiana","French Polynesia","French Southern Territories","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar",
 		"Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guernsey","Guinea","Guinea-Bissau","Guyana","Haiti","Heard Island and McDonald Islands","Holy See","Honduras","Hong Kong","Hungary","Iceland",
 		"India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Korea (North)","Korea (South)","Kuwait","Kyrgyzstan",
 		"Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macao","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania",
 		"Mauritius","Mayotte","Mexico","Micronesia (Federated States of)","Moldova (Republic of)","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal",
 		"Netherlands","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","North Macedonia","Northern Mariana Islands","Norway","Oman","Pakistan","Palau","Palestine, State of","Panama",
-		"Papua New Guinea","Paraguay","Peru","Philippines","Pitcairn","Poland","Portugal","Puerto Rico","Qatar","RÃ©union","Romania","Russian Federation","Rwanda","Saint BarthÃ©lemy",
+		"Papua New Guinea","Paraguay","Peru","Philippines","Pitcairn","Poland","Portugal","Puerto Rico","Qatar","Réunion","Romania","Russian Federation","Rwanda","Saint Barthélemy",
 		"Saint Helena, Ascension and Tristan da Cunha","Saint Kitts and Nevis","Saint Lucia","Saint Martin (French part)","Saint Pierre and Miquelon",
 		"Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Sint Maarten (Dutch part)","Slovakia","Slovenia",
 		"Solomon Islands","Somalia","South Africa","South Georgia and the South Sandwich Islands","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Svalbard and Jan Mayen","Sweden","Switzerland",
@@ -450,7 +454,7 @@ programa
 						{
 							escreva(codigos[indice],"\t\t\t",nomes[indice],"\n")
 						}
-				 		pare   // Impede que as instruÃ§Ãµes do caso 2 sejam executadas
+				 		pare   // Impede que as instruções do caso 2 sejam executadas
 				 		
 				 	caso 2: 
 				 		limpa()
@@ -459,7 +463,7 @@ programa
 						{
 							escreva(codigos[indice],"\t\t\t",nomes[indice],"\n")
 						}
-				 		pare   // Impede que as instruÃ§Ãµes do caso 2 sejam executadas
+				 		pare   // Impede que as instruções do caso 2 sejam executadas
 				 		
 				 	caso 3: 
 				 		limpa()
@@ -514,16 +518,16 @@ programa
 	inteiro check = 0
 
 	limpa()
-	escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
+	escreva("      ::::: ??  Portal de Apoio ao Imigrante :::::  \n")
 	// escreva("Escolha um nome de usuario: ")
 	// leia(usuario)
-	consultarnome() // ValidarÃ¡ o nome de usuario
+	consultarnome() // Validará o nome de usuario
 	consultarsenha()
 	escreva("Qual seu nome completo? ")
 	leia(nomecompleto)
 	consultar_data_nascimento()
 	consultar_pais()
-	escreva("Qual o numero/codigo do seu documento de identificaÃ§Ã£o? ")
+	escreva("Qual o numero/codigo do seu documento de identificação? ")
 	leia(doc_identificacao)
 	consultaremail()
 	
@@ -532,7 +536,7 @@ programa
 	posicaoAuxiliar = localizacao()
 	bancoUsuario[posicaoAuxiliar][0] = usuario
 	bancoUsuario[posicaoAuxiliar][1] = senha
-	bancoUsuario[posicaoAuxiliar][2] = "2" // Deve ser sempre assignado o numero 2, pois Ã© um cadastro de Imigrante
+	bancoUsuario[posicaoAuxiliar][2] = "2" // Deve ser sempre assignado o numero 2, pois é um cadastro de Imigrante
 	bancoUsuario[posicaoAuxiliar][3] = nomecompleto
 	bancoUsuario[posicaoAuxiliar][4] = dtnascimento
 	bancoUsuario[posicaoAuxiliar][5] = pais
@@ -540,4 +544,136 @@ programa
 	bancoUsuario[posicaoAuxiliar][7] = email
 	}		
 
-}
+
+funcao menuGoverno() //menu governo
+  {
+   //Tela inicial menu governo
+	cadeia entrada
+     faca {
+     	
+		limpa()
+	     escreva(":::::  Portal de Apoio ao Imigrante :::::  \n")
+		escreva("    MENU GOVERNO \n")
+		escreva("\nESCOLHA UMA OPÇÃO: ")
+		escreva("\n(1) CRIAR NOVO CADASTRO")
+		escreva("\n(2) ALTERAR CADASTRO")
+		escreva("\n(3) VER SITUAÇÃO DOS CADASTROS")
+		escreva("\n(4) SAIR MENU GOVERNO\n")
+	     leia(entrada)
+	
+	
+		 se 
+			(entrada == "1")
+				{   
+					cadastro() // Chamando função de cadastro escolhido pelo usuario
+		  }senao se 
+			(entrada == "2")
+					{
+				    alterarCadastro() //Chamando função de alterar cadastro escolhido pelo usuario
+					}
+			senao se 
+			   (entrada == "3")
+			      {
+			      	mostrarCadastro() //Chamando função de mostrar cadastro escolhido pelo usuario
+			      }
+			      senao se 
+			   (entrada == "4")
+			      {
+	            escreva("Saindo do programa...\n") 
+	            // Saindo do menu governo
+			      
+			      }
+			      senao{
+			      	escreva("Opção inválida. Tente novamente.\n")
+			      }
+     }  
+     enquanto (entrada != "4")
+     		
+    }
+    
+ funcao alterarCadastro(){ //Função para alterar cadastros de imigrantes
+
+	cadeia novoNome, novoEmail, novaSenha,stop
+     
+     limpa()
+     escreva("     ALTERAÇÃO DE CADASTRO     ")
+	escreva("\nDigite o usuario que deseja alterar os dados: \n")
+	leia(usuario)
+	mostrarCadastroUsuario()
+  
+	para (inteiro posicao = 0; posicao < tamanho; posicao++){
+		se (usuario == bancoUsuario[posicao][0])
+          {  
+	           //Alteração de cadastro
+			escreva("Digite o novo nome: ")
+			consultarnome()
+
+		
+	           escreva("Digite a nova senha: ")
+	           leia(novaSenha)
+	           bancoUsuario[posicao][1] = novaSenha
+	           escreva("SENHA ALTERADA: \n", novaSenha, "\n")
+	 
+	
+			 escreva("Digite o novo email: ")
+			 leia(novoEmail)
+			 bancoUsuario[posicao][7] = novoEmail
+	           escreva("EMAIL ALTERADO: \n", novoEmail, "\n")
+	          
+	           
+			 escreva("Cadastro alterado com sucesso!\n")
+	           Util.aguarde(400)
+			 
+          }senao se(posicao == tamanho){
+	           escreva("Cadastro não encontrado.\n")
+	           Util.aguarde(400)
+        }
+		   
+	    	}
+	    	escreva("Para voltar ao MENU GOVERNO digite enter")
+	    	leia(stop)
+   }
+		          	          
+
+  funcao mostrarCadastro(){ //função para mostrar dados cadastrados
+
+		cadeia stop
+	     limpa()
+	     escreva("::::: Portal de Apoio ao Imigrante :::::  \n")
+	     escreva("        MENU GOVERNO    \n")
+	     escreva(" DADOS CADASTRADOS :\n")
+	     escreva("\nNome\t\tsenha\t\tData_nascimento\t\tNacionalidade\t\tDocumento\t\tEmail")
+
+     	para (inteiro posicao = 0; posicao < tamanho; posicao++){
+
+     	 escreva ("\n\n ",bancoUsuario[posicao][0], "\t\t ", bancoUsuario[posicao][1], "\t\t ", bancoUsuario[posicao][4],"\t\t\t\t",bancoUsuario[posicao][5],"\t\t\t\t",bancoUsuario[posicao][5],"\t\t",bancoUsuario[posicao][7],"\n")
+     	 		se(bancoUsuario[posicao][0] == ""){
+     	 		    pare
+     	 		}
+
+     	}
+     	escreva("Para voltar ao MENU GOVERNO digite enter")
+	    	leia(stop)
+  }
+   funcao mostrarCadastroUsuario(){ //função para mostrar dados cadastrados
+
+	    inteiro check =0
+	    limpa()
+	    escreva("::::: Portal de Apoio ao Imigrante :::::  \n")
+
+     	para (inteiro posicao = 0; posicao < tamanho; posicao++){
+			se(bancoUsuario[posicao][0] == usuario){
+				escreva(" Usuario Cadastrado :\n")
+				escreva("\nNome\t\tsenha\t\tData_nascimento\t\tNacionalidade\t\tDocumento\t\tEmail\n")
+     	 		escreva ("\n\n ",bancoUsuario[posicao][0], "\t\t ", bancoUsuario[posicao][1], "\t\t ", bancoUsuario[posicao][4],"\t\t\t\t",bancoUsuario[posicao][5],"\t\t\t\t",bancoUsuario[posicao][5],"\t\t",bancoUsuario[posicao][7],"\n")
+				check =1
+				pare
+		     }senao{}
+
+     	}
+     se (check == 0){
+     	escreva("\nUsuário não encontrado!\n")
+     }
+      }
+    
+  }
