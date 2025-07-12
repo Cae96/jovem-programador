@@ -2,7 +2,7 @@ programa
 {
 
   inclua biblioteca Util  // importando funcao util
-  inclua biblioteca Texto // importando funcao texto
+  inclua biblioteca Texto --> tx // importando funcao texto
   inclua biblioteca Tipos
 
 	cadeia usuario,senha, email, dtnascimento, pais, nome
@@ -125,8 +125,8 @@ programa
 		escreva(" \t\t     PORTAS ABERTAS   \n")
 		escreva(" Sistema de Apoio ao Imigrante\n")
 		escreva("==========================================\n")
-		escreva("Apoio para quem começa uma nova vida longe de casa\n")
-		escreva("Nosso objetivo é acolher, informar e conectar, para que voc? se sinta em casa, onde quer que esteja.")
+		escreva("Apoio para quem comeï¿½a uma nova vida longe de casa\n")
+		escreva("Nosso objetivo ï¿½ acolher, informar e conectar, para que voc? se sinta em casa, onde quer que esteja.")
 		escreva("O que deseja fazer?\n")
 		escreva("1 - Cadastro\n")
 		escreva("2 - Log in\n")
@@ -266,7 +266,7 @@ programa
 				}
 			se (check == 1)
 			{
-				escreva("Email já utilizado, escolha outro\n")
+				escreva("Email jï¿½ utilizado, escolha outro\n")
 			}
 			senao
 			{
@@ -539,7 +539,7 @@ programa
 	leia(nomecompleto)
 	consultar_data_nascimento()
 	consultar_pais()
-	escreva("Qual o numero/codigo do seu documento de identificação? ")
+	escreva("Qual o numero/codigo do seu documento de identificaï¿½ï¿½o? ")
 	leia(doc_identificacao)
 	consultaremail()
 	
@@ -548,7 +548,7 @@ programa
 	posicaoAuxiliar = localizacao()
 	bancoUsuario[posicaoAuxiliar][0] = usuario
 	bancoUsuario[posicaoAuxiliar][1] = senha
-	bancoUsuario[posicaoAuxiliar][2] = "2" // Deve ser sempre assignado o numero 2, pois é um cadastro de Imigrante
+	bancoUsuario[posicaoAuxiliar][2] = "2" // Deve ser sempre assignado o numero 2, pois ï¿½ um cadastro de Imigrante
 	bancoUsuario[posicaoAuxiliar][3] = nomecompleto
 	bancoUsuario[posicaoAuxiliar][4] = dtnascimento
 	bancoUsuario[posicaoAuxiliar][5] = pais
@@ -651,31 +651,36 @@ programa
 				pare
 			}
 			senao
-			{
+			{	
+				// Verifica se o email Ã© vÃ¡lido no formato
+				se (nao validarEmail()) {
+				escreva("Formato de email invÃ¡lido! Tente novamente.\n")
+				check = 1 // continua no loop
+			   }
+				senao
+			   {
+			 
 				para (inteiro posicao = 0; posicao < tamanho; posicao++)
 					{
 					se (email == bancoUsuario[posicao][7])
 					{
 						check = 1
+						escreva("Email jÃ¡ utilizado. Escolha outro.\n")
 						pare
 					}
-					}
-				se (check == 1)
-				{
-					escreva("Email ja utilizado\n")
-				}
-				senao
+				}				
+					// Se passou por todas as verificaÃ§Ãµes
+				se (check == 0)
 				{
 					bancoUsuario[cambio][7] = email
-					escreva("Usuario alterado com sucesso")
-					check = 1
+					escreva("Email alterado com sucesso!\n")
+					pare // sai do loop
 				}	
 			}
 		}
+      }	
 		enquanto (check ==1)
-
-		
-	}
+  }
 
 	funcao alterarnome()
 	{
@@ -695,7 +700,7 @@ programa
 	funcao alterar_doc_identificacao()
 		{
 			cadeia doc
-			escreva("Digite o numero de identificação (para manter o nome original, deixe em branco): ")
+			escreva("Digite o numero de identificaï¿½ï¿½o (para manter o nome original, deixe em branco): ")
 			leia(doc)
 			se (nome =="")
 				{
@@ -727,7 +732,7 @@ programa
 		     }senao{}
      	}
      se (check == 0){
-     	escreva("\nUsuário não encontrado!\n")
+     	escreva("\nUsuï¿½rio nï¿½o encontrado!\n")
      }
      senao
      {
@@ -735,7 +740,7 @@ programa
      	 faca {
 	     	
 
-			escreva("\n Selecione a opção desejada")
+			escreva("\n Selecione a opï¿½ï¿½o desejada")
 			escreva("\n(1)- Para ATIVAR usuario")
 			escreva("\n(2) - Para DESATIVAR usuario")
 			escreva("\n(3) - Voltar\n")
@@ -764,7 +769,7 @@ programa
 		            pare
 			}
 			senao{
-			escreva("Opção inválida. Tente novamente.\n")
+			escreva("Opï¿½ï¿½o invï¿½lida. Tente novamente.\n")
 			}
 	     }  
 	     enquanto (1==1)
@@ -780,10 +785,10 @@ programa
 			limpa()
 		     escreva(":::::  Portal de Apoio ao Imigrante :::::  \n")
 			escreva("    MENU GOVERNO \n")
-			escreva("\nESCOLHA UMA OPÇÃO: ")
+			escreva("\nESCOLHA UMA OPï¿½ï¿½O: ")
 			escreva("\n(1) CRIAR NOVO CADASTRO")
 			escreva("\n(2) ALTERAR CADASTRO")
-			escreva("\n(3) VER SITUAÇÃO DOS CADASTROS")
+			escreva("\n(3) VER SITUAï¿½ï¿½O DOS CADASTROS")
 			escreva("\n(4) ATIVAR/DESATIVAR USUARIO")
 			escreva("\n(5) SAIR MENU GOVERNO\n")
 		     leia(entrada)
@@ -816,7 +821,7 @@ programa
 				      
 				      }
 				      senao{
-				      	escreva("Opção inválida. Tente novamente.\n")
+				      	escreva("Opï¿½ï¿½o invï¿½lida. Tente novamente.\n")
 				      }
 	     }  
 	     enquanto (entrada != "5")
@@ -828,7 +833,7 @@ programa
 		cadeia novoNome, novoEmail, novaSenha,stop
 	     
 	     limpa()
-	     escreva("     ALTERAÇÃO DE CADASTRO     ")
+	     escreva("     ALTERAï¿½ï¿½O DE CADASTRO     ")
 		escreva("\nDigite o usuario que deseja alterar os dados: \n")
 		leia(usuario)
 		mostrarCadastroUsuario()
@@ -838,7 +843,7 @@ programa
 			se (usuario == bancoUsuario[posicao][0])
 	          {  	
 	  			cambio = posicao
-		           //Alteração de cadastro
+		           //Alteraï¿½ï¿½o de cadastro
 				alterarusuario()
 				alterarsenha()
 				alteraremail()
@@ -854,7 +859,7 @@ programa
 		          Util.aguarde(400)
 				 
 	          }senao se(posicao == tamanho){
-		           escreva("Cadastro não encontrado.\n")
+		           escreva("Cadastro nï¿½o encontrado.\n")
 		           Util.aguarde(400)
 	        }
 			   
@@ -905,8 +910,85 @@ programa
 
      	}
      se (check == 0){
-     	escreva("\nUsuário não encontrado!\n")
+     	escreva("\nUsuï¿½rio nï¿½o encontrado!\n")
      }
       }
+
+    funcao logico validarEmail() {
+  	
+  	// VariÃ¡veis de controle
+    inteiro i, tamanhoEmail, posArroba = -1, posPonto = -1, contadorArroba = 0
+    logico check = verdadeiro
+    caracter c
     
+	// ObtÃ©m o nÃºmero de caracteres do email
+    tamanhoEmail = tx.numero_caracteres(email)
+    
+	// VerificaÃ§Ã£o rÃ¡pida se estÃ¡ vazio
+    se (email == "" ou tx.numero_caracteres(email) == 0) {
+        retorne falso
+    }
+   // Se o tamanho for zero, jÃ¡ Ã© invÃ¡lido
+    se (tamanhoEmail == 0) {
+        check = falso
+    }
+
+    // Percorre o email caractere por caractere
+    se (check) {
+        para (i = 0; i < tamanhoEmail; i++) {
+            c = tx.obter_caracter(email, i)
+
+		// Conta ocorrÃªncias de '@' e armazena sua posiÃ§Ã£o
+            se (c == '@') {
+                contadorArroba = contadorArroba + 1
+                se (contadorArroba == 1) {
+                    posArroba = i
+                }
+            }
+		// Armazena posiÃ§Ã£o do Ãºltimo '.'
+            se (c == '.') {
+                posPonto = i
+            }
+        }
+
+       // SÃ³ pode haver um '@'
+        se (contadorArroba != 1) {
+            check = falso
+        }
+
+         // '@' nÃ£o pode ser o primeiro nem o Ãºltimo caractere
+        se (check e (posArroba == 0 ou posArroba == tamanhoEmail - 1)) {
+            check = falso
+        }
+
+        // '.' tem que existir e nÃ£o pode estar no fim
+        se (check e (posPonto == -1 ou posPonto == tamanhoEmail - 1)) {
+            check = falso
+        }
+
+       // '.' deve vir depois do '@' com pelo menos um caractere entre eles
+        se (check e (posPonto - posArroba <= 1)) {
+            check = falso
+        }
+
+         // '.' nÃ£o pode ser o primeiro nem o Ãºltimo caractere do email
+        se (check e (tx.obter_caracter(email, 0) == '.' ou tx.obter_caracter(email, tamanhoEmail - 1) == '.')) {
+            check = falso
+        }
+    }
+	// Retorna verdadeiro se passou em todas as validaÃ§Ãµes
+    retorne check
+}
   }
+/* $$$ Portugol Studio $$$ 
+ * 
+ * Esta seÃ§Ã£o do arquivo guarda informaÃ§Ãµes do Portugol Studio.
+ * VocÃª pode apagÃ¡-la se estiver utilizando outro editor.
+ * 
+ * @POSICAO-CURSOR = 19033; 
+ * @DOBRAMENTO-CODIGO = [29, 37, 117, 160, 173, 216, 239, 278, 290, 397, 525, 558, 607, 684, 699, 715, 778, 870, 895];
+ * @PONTOS-DE-PARADA = ;
+ * @SIMBOLOS-INSPECIONADOS = ;
+ * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
+ * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
+ */
