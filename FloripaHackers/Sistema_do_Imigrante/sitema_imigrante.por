@@ -1,19 +1,19 @@
 programa
 {
 
-  inclua biblioteca Util  // importando funcao util
-  inclua biblioteca Texto // importando funcao texto
+  inclua biblioteca Util --> u // importando funcao util
+  inclua biblioteca Texto --> tx // importando funcao texto
   inclua biblioteca Tipos
 
 	cadeia usuario,senha, email, dtnascimento, pais, nome
-	inteiro infinito = 1
+	inteiro infinito = 1, cambio = -1
 	const inteiro tamanho = 100 // Deve ser colocado o mesmo numero de linhas que o vetor bancoUsuario
-	cadeia bancoUsuario[tamanho][8]
+	cadeia bancoUsuario[tamanho][9]
 	 
 
 	inteiro posicaoAuxiliar = 0
 
-	funcao criarUsuario(cadeia nome, cadeia password, cadeia tipo, cadeia nomecompleto, cadeia dt_nascimento, cadeia nacionalidade, cadeia doc_identificacao, cadeia email2)
+	funcao criarUsuario(cadeia nome, cadeia password, cadeia tipo, cadeia nomecompleto, cadeia dt_nascimento, cadeia nacionalidade, cadeia doc_identificacao, cadeia email2, cadeia status)
 	{
 		posicaoAuxiliar = localizacao()
 		bancoUsuario[posicaoAuxiliar][0] = nome
@@ -24,12 +24,13 @@ programa
 		bancoUsuario[posicaoAuxiliar][5] = nacionalidade
 		bancoUsuario[posicaoAuxiliar][6] = doc_identificacao
 		bancoUsuario[posicaoAuxiliar][7] = email2
+		bancoUsuario[posicaoAuxiliar][8] = status
 	}
 	
 	funcao inicio()
 	{		
-		criarUsuario("andre", "1234", "1","Andre da Silva","25/05/1990","AN","6890Y56","andre@outlook.com")
-		criarUsuario("luis", "6789", "2","Luis Wagner Britt","14/11/2000","BO","098567930" ,"luiskare@gmail.com")
+		criarUsuario("andre", "1234", "1","Andre da Silva","25/05/1990","AN","6890Y56","andre@outlook.com","ativo")
+		criarUsuario("luis", "6789", "2","Luis Wagner Britt","14/11/2000","BO","098567930" ,"luiskare@gmail.com","ativo")
 		telainicial()
 		
 	}
@@ -43,7 +44,10 @@ programa
 			
 		faca
 		{
-			escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
+			escreva("==========================================\n")
+			escreva("      PORTAS ABERTAS   \n")
+			escreva("  Sistema de Apoio ao Imigrante\n")
+			escreva("==========================================\n")
 			escreva("Para retornar ao site original digite 'q' e enter\n")
 		     escreva("Usuario: ")
 		     leia(usuario)
@@ -70,35 +74,46 @@ programa
 				
 		
 			se (usuario == bancoUsuario[auxiliar][0] e senha == bancoUsuario[auxiliar][1])
-			{escreva("entrada OK")
-			Util.aguarde(1000)
-   
-   // Se o usuario for um usuario do governo abrir· o menu_governo, caso o usuario seja um imigrante abrir· o menu_imigrante
-   // Aqui deveria se conectar ao banco de dados
-	
-				se 
-				(bancoUsuario[auxiliar][2] == "1")
-				{        
-					menuGoverno()
-					Util.aguarde(2000)
-				}
-
-				senao se 
-				(bancoUsuario[auxiliar][2] == "2")
+			{
+				se(bancoUsuario[auxiliar][8]!="ativo")
 				{
-					escreva("menu_imigrante")
-					Util.aguarde(2000)
-				}
-
-			}
-
-				senao{        
-					escreva("Dados nao encontrados no sistema, verifique os dados e tente novamente")
+					limpa()
+					escreva("!!!Usuario desativado, contate o sistema de suporte!!!")
 					Util.aguarde(2000)
 					limpa()
 				}
+				senao
+				{
+					escreva("entrada OK")
+					Util.aguarde(1000)
+		   
+		   // Se o usuario for um usuario do governo abrir? o menu_governo, caso o usuario seja um imigrante abrir? o menu_imigrante
+		   // Aqui deveria se conectar ao banco de dados
+			
+						se 
+						(bancoUsuario[auxiliar][2] == "1")
+						{        
+							menuGoverno()
+							Util.aguarde(2000)
+						}
+		
+						senao se 
+						(bancoUsuario[auxiliar][2] == "2")
+						{
+							escreva("menu_imigrante")
+							Util.aguarde(2000)
+						}
 
+				}
 			}
+			senao
+			{        
+				escreva("Dados nao encontrados no sistema, verifique os dados e tente novamente")
+				Util.aguarde(2000)
+				limpa()
+			}
+
+		}
 		enquanto (usuario != "q")
 		
 	}
@@ -106,15 +121,14 @@ programa
 	funcao telainicial()
 	{
 		cadeia entrada
-
 		faca{
 
 		escreva("==========================================\n")
 		escreva(" \t\t     PORTAS ABERTAS   \n")
-		escreva(" Sistema de Apoio ao Imigrante\n")
+		escreva("    Sistema de Apoio ao Imigrante\n")
 		escreva("==========================================\n")
-		escreva("Apoio para quem comeÁa uma nova vida longe de casa\n")
-		escreva("Nosso objetivo È acolher, informar e conectar, para que vocÍ se sinta em casa, onde quer que esteja.")
+		escreva("Apoio para quem come√ßa uma nova vida longe de casa\n")
+		escreva("Nosso objetivo √© acolher, informar e conectar, para que voc√™ se sinta em casa, onde quer que esteja.")
 		escreva("O que deseja fazer?\n")
 		escreva("1 - Cadastro\n")
 		escreva("2 - Log in\n")
@@ -231,38 +245,41 @@ programa
 
 		faca
 		{
-		escreva("Digite seu email (caso nao tenha email deixe o campo em branco): ")
+		escreva("Digite seu email: ")
 		leia(email)
 		check = 0
 		inteiro resposta = Texto.numero_caracteres(usuario)
 
 			se (email == "") 
+			{	
+				escreva("O email √© obrigat√≥rio. Tente novamente!\n")
+            		check = 1
+			
+		    }senao se(nao validarEmail())
 			{
-			pare
+			 	escreva("Formato de email inv√°lido. Exemplo v√°lido: usuario@dominio.com\n")
+           		 check = 1
 			}
-			senao
-			{
+			 senao
+      		  {
 				para (inteiro posicao = 0; posicao < tamanho; posicao++)
 				{
 				se (email ==	bancoUsuario[posicao][7])
-				{
+				{	
 					check = 1
+					escreva("\nEmail j√° utilizado, escolha outro!\n")
+					
 					pare
 				}
 			}
-			
-				}
-			se (check == 1)
-			{
-				escreva("Email j· utilizado, escolha outro\n")
-			}
-			senao
-			{
+			se(check == 0) {
+				
 				escreva("Email OK\n")
 			}	
 		}
-		enquanto (check ==1)
-	}
+		
+	  }enquanto (check ==1)
+ }
 
 	funcao cadeia ehnumero(cadeia a)
 	{
@@ -397,14 +414,14 @@ programa
 		"Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia (Plurinational State of)","Bonaire, Sint Eustatius and Saba",
 		"Bosnia and Herzegovina","Botswana","Bouvet Island","Brazil","British Indian Ocean Territory","Brunei Darussalam","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada",
 		"Cayman Islands","Central African Republic","Chad","Chile","China","Christmas Island","Cocos (Keeling) Islands","Colombia","Comoros","Congo","Congo (Democratic Republic of)","Cook Islands","Costa Rica",
-		"CÙte d'Ivoire","Croatia","Cuba","CuraÁao","Cyprus","Czechia","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini",
+		"C?te d'Ivoire","Croatia","Cuba","Cura?ao","Cyprus","Czechia","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini",
 		"Ethiopia","Falkland Islands (Malvinas)","Faroe Islands","Fiji","Finland","France","French Guiana","French Polynesia","French Southern Territories","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar",
 		"Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guernsey","Guinea","Guinea-Bissau","Guyana","Haiti","Heard Island and McDonald Islands","Holy See","Honduras","Hong Kong","Hungary","Iceland",
 		"India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Korea (North)","Korea (South)","Kuwait","Kyrgyzstan",
 		"Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macao","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania",
 		"Mauritius","Mayotte","Mexico","Micronesia (Federated States of)","Moldova (Republic of)","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal",
 		"Netherlands","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","North Macedonia","Northern Mariana Islands","Norway","Oman","Pakistan","Palau","Palestine, State of","Panama",
-		"Papua New Guinea","Paraguay","Peru","Philippines","Pitcairn","Poland","Portugal","Puerto Rico","Qatar","RÈunion","Romania","Russian Federation","Rwanda","Saint BarthÈlemy",
+		"Papua New Guinea","Paraguay","Peru","Philippines","Pitcairn","Poland","Portugal","Puerto Rico","Qatar","R?union","Romania","Russian Federation","Rwanda","Saint Barth?lemy",
 		"Saint Helena, Ascension and Tristan da Cunha","Saint Kitts and Nevis","Saint Lucia","Saint Martin (French part)","Saint Pierre and Miquelon",
 		"Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Sint Maarten (Dutch part)","Slovakia","Slovenia",
 		"Solomon Islands","Somalia","South Africa","South Georgia and the South Sandwich Islands","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Svalbard and Jan Mayen","Sweden","Switzerland",
@@ -454,7 +471,7 @@ programa
 						{
 							escreva(codigos[indice],"\t\t\t",nomes[indice],"\n")
 						}
-				 		pare   // Impede que as instruÁıes do caso 2 sejam executadas
+				 		pare   // Impede que as instru??es do caso 2 sejam executadas
 				 		
 				 	caso 2: 
 				 		limpa()
@@ -463,7 +480,7 @@ programa
 						{
 							escreva(codigos[indice],"\t\t\t",nomes[indice],"\n")
 						}
-				 		pare   // Impede que as instruÁıes do caso 2 sejam executadas
+				 		pare   // Impede que as instru??es do caso 2 sejam executadas
 				 		
 				 	caso 3: 
 				 		limpa()
@@ -518,162 +535,486 @@ programa
 	inteiro check = 0
 
 	limpa()
-	escreva("      ::::: ??  Portal de Apoio ao Imigrante :::::  \n")
+	escreva("==========================================\n")
+	escreva("      PORTAS ABERTAS   \n")
+	escreva("  Sistema de Apoio ao Imigrante\n")
+	escreva("==========================================\n")
 	// escreva("Escolha um nome de usuario: ")
 	// leia(usuario)
-	consultarnome() // Validar· o nome de usuario
+	consultarnome() // Validar? o nome de usuario
 	consultarsenha()
 	escreva("Qual seu nome completo? ")
 	leia(nomecompleto)
 	consultar_data_nascimento()
 	consultar_pais()
-	escreva("Qual o numero/codigo do seu documento de identificaÁ„o? ")
+	escreva("Qual o numero/codigo do seu documento de identifica√ß√£o? ")
 	leia(doc_identificacao)
 	consultaremail()
-	
+	escreva("\tCadastro Realizado!")
 
 	// Adiciona os dados ao banco de dados
 	posicaoAuxiliar = localizacao()
 	bancoUsuario[posicaoAuxiliar][0] = usuario
 	bancoUsuario[posicaoAuxiliar][1] = senha
-	bancoUsuario[posicaoAuxiliar][2] = "2" // Deve ser sempre assignado o numero 2, pois È um cadastro de Imigrante
+	bancoUsuario[posicaoAuxiliar][2] = "2" // Deve ser sempre assignado o numero 2, pois ÔøΩ um cadastro de Imigrante
 	bancoUsuario[posicaoAuxiliar][3] = nomecompleto
 	bancoUsuario[posicaoAuxiliar][4] = dtnascimento
 	bancoUsuario[posicaoAuxiliar][5] = pais
 	bancoUsuario[posicaoAuxiliar][6] = doc_identificacao
 	bancoUsuario[posicaoAuxiliar][7] = email
+	bancoUsuario[posicaoAuxiliar][8] = "ativo"
+
+	u.aguarde(2000)
+	limpa()
 	}		
 
+	funcao alterarusuario()
+	{
+				
+		inteiro check = 0
 
-funcao menuGoverno() //menu governo
-  {
-   //Tela inicial menu governo
-	cadeia entrada
-     faca {
-     	
-		limpa()
-	     escreva(":::::  Portal de Apoio ao Imigrante :::::  \n")
-		escreva("    MENU GOVERNO \n")
-		escreva("\nESCOLHA UMA OP«√O: ")
-		escreva("\n(1) CRIAR NOVO CADASTRO")
-		escreva("\n(2) ALTERAR CADASTRO")
-		escreva("\n(3) VER SITUA«√O DOS CADASTROS")
-		escreva("\n(4) SAIR MENU GOVERNO\n")
-	     leia(entrada)
-	
-	
-		 se 
-			(entrada == "1")
-				{   
-					cadastro() // Chamando funÁ„o de cadastro escolhido pelo usuario
-		  }senao se 
-			(entrada == "2")
-					{
-				    alterarCadastro() //Chamando funÁ„o de alterar cadastro escolhido pelo usuario
-					}
-			senao se 
-			   (entrada == "3")
-			      {
-			      	mostrarCadastro() //Chamando funÁ„o de mostrar cadastro escolhido pelo usuario
-			      }
-			      senao se 
-			   (entrada == "4")
-			      {
-	            escreva("Saindo do programa...\n") 
-	            // Saindo do menu governo
-			      
-			      }
-			      senao{
-			      	escreva("OpÁ„o inv·lida. Tente novamente.\n")
-			      }
-     }  
-     enquanto (entrada != "4")
-     		
-    }
-    
- funcao alterarCadastro(){ //FunÁ„o para alterar cadastros de imigrantes
-
-	cadeia novoNome, novoEmail, novaSenha,stop
-     
-     limpa()
-     escreva("     ALTERA«√O DE CADASTRO     ")
-	escreva("\nDigite o usuario que deseja alterar os dados: \n")
-	leia(usuario)
-	mostrarCadastroUsuario()
-  
-	para (inteiro posicao = 0; posicao < tamanho; posicao++){
-		se (usuario == bancoUsuario[posicao][0])
-          {  
-	           //AlteraÁ„o de cadastro
-			escreva("Digite o novo nome: ")
-			consultarnome()
+		faca{
 
 		
-	           escreva("Digite a nova senha: ")
-	           leia(novaSenha)
-	           bancoUsuario[posicao][1] = novaSenha
-	           escreva("SENHA ALTERADA: \n", novaSenha, "\n")
-	 
-	
-			 escreva("Digite o novo email: ")
-			 leia(novoEmail)
-			 bancoUsuario[posicao][7] = novoEmail
-	           escreva("EMAIL ALTERADO: \n", novoEmail, "\n")
-	          
-	           
-			 escreva("Cadastro alterado com sucesso!\n")
-	           Util.aguarde(400)
-			 
-          }senao se(posicao == tamanho){
-	           escreva("Cadastro n„o encontrado.\n")
-	           Util.aguarde(400)
-        }
-		   
-	    	}
-	    	escreva("Para voltar ao MENU GOVERNO digite enter")
-	    	leia(stop)
-   }
-		          	          
+		escreva("\nEscolha novo nome de usuario (para manter o nome de usuario deixe em branco e aperte enter): ")
+		leia(usuario)
+		check = 0
+		inteiro resposta = Texto.numero_caracteres(usuario)
 
-  funcao mostrarCadastro(){ //funÁ„o para mostrar dados cadastrados
+		se (usuario =="")
+		{
+			pare
+		}
+		senao se(resposta >= 4)
+
+		{
+			para (inteiro posicao = 0; posicao < tamanho; posicao++)
+				{
+				se (usuario ==	bancoUsuario[posicao][0])
+				{
+					check = 1
+					pare
+				}
+				}
+			se (check == 1)
+			{
+				escreva("Nome de usuario ja utilizado\n")
+			}
+			senao
+			{
+				bancoUsuario[cambio][0] = usuario
+				escreva("Usuario alterado com sucesso")
+			}	
+		}
+		senao
+		{
+			check = 1
+			escreva("O campo deve ser preenchido com minimo 4 caracteres\n")
+		}
+		}
+		enquanto (check ==1)
+
+		
+	}
+
+	funcao alterarsenha()
+	{
+		inteiro check = 0
+		faca{
+			escreva("\nEscolha uma senha nova (para manter a senha original, deixe em branco): ")
+			leia(senha)
+			inteiro resposta = Texto.numero_caracteres(senha)
+	
+			se (senha=="")
+			{
+				pare
+			}
+			senao se (resposta >= 4) //garantir que a senha nao seja em branco e adicionar depois quantidade minima de caracteres
+				{
+					bancoUsuario[cambio][1] = senha
+					escreva("Senha alterada com sucesso\n")
+					pare
+				}
+			senao
+			{
+				escreva("Voce deve escolher uma senha com pelo menos 4 caracteres\n")
+			}
+		}
+		enquanto (check ==0)
+	
+			
+	}
+
+	funcao alteraremail()
+	{
+				
+		inteiro check = 0
+
+		faca
+		{
+
+		
+			escreva("Escolha novo email (para manter o email anterior deixe o campo em branco e aperte enter): ")
+			leia(email)
+			check = 0
+	
+			se (email =="")
+			{
+				pare
+			}
+			senao
+			{	
+				// Verifica se o email √© v√°lido no formato
+				se (nao validarEmail()) {
+				escreva("Formato de email inv√°lido! Tente novamente.\n")
+				check = 1 // continua no loop
+			   }
+				senao
+			   {
+			 
+				para (inteiro posicao = 0; posicao < tamanho; posicao++)
+					{
+					se (email == bancoUsuario[posicao][7])
+					{
+						check = 1
+						escreva("Email j√° utilizado. Escolha outro.\n")
+						pare
+					}
+				}				
+					// Se passou por todas as verifica√ß√µes
+				se (check == 0)
+				{
+					bancoUsuario[cambio][7] = email
+					escreva("Email alterado com sucesso!\n")
+					pare // sai do loop
+				}	
+			}
+		}
+      }	
+		enquanto (check ==1)
+  }
+
+	funcao alterarnome()
+	{
+		escreva("Escolha novo nome (para manter o nome original, deixe em branco): \n")
+		leia(nome)
+		se (nome =="")
+			{
+			}
+		senao
+		{
+			bancoUsuario[cambio][3] = nome
+			escreva("Nome alterado com sucesso")
+		}
+		
+	}
+
+	funcao alterar_doc_identificacao()
+		{
+			cadeia doc
+			escreva("\nDigite o numero de identifica√ß√£o (para manter o nome original, deixe em branco): ")
+			leia(doc)
+			se (nome =="")
+				{
+				}
+			senao
+			{
+				bancoUsuario[cambio][6] = doc
+				escreva("Documento alterado com sucesso\n")
+			}
+			
+		}
+
+	funcao alterarstatus()
+	{
+	    inteiro check =0
+	    cadeia entrada
+	    limpa()
+	    escreva("Digite usuario:  \n")
+	    leia(entrada)
+
+     	para (inteiro posicao = 0; posicao < tamanho; posicao++){
+			se(bancoUsuario[posicao][0] == entrada){
+				escreva(" Usuario Cadastrado :\n")
+				escreva("\nNome\t\tsenha\t\tData_nascimento\t\tNacionalidade\t\tDocumento\t\tEmail\n")
+     	 		escreva ("\n\n ",bancoUsuario[posicao][0], "\t\t ", "*****", "\t\t ", bancoUsuario[posicao][4],"\t\t",bancoUsuario[posicao][5],"\t\t\t",bancoUsuario[posicao][6],"\t\t\t",bancoUsuario[posicao][7],"\n")
+				check =1
+				cambio = posicao
+				pare
+		     }senao{}
+     	}
+     se (check == 0){
+     	escreva("\nUsuario n√£o encontrado!\n")
+     }
+     senao
+     {
+     	
+     	 faca {
+	     	
+
+			escreva("\n Selecione a op√ß√£o desejada")
+			escreva("\n(1)- Para ATIVAR usuario")
+			escreva("\n(2) - Para DESATIVAR usuario")
+			escreva("\n(3) - Voltar\n")
+		     leia(entrada)
+		
+		
+			 se 
+				(entrada == "1")
+					{   
+						bancoUsuario[cambio][8] ="ativo"
+						escreva("Usuario ativo")
+						Util.aguarde(2000)
+						pare
+			  }senao se 
+				(entrada == "2")
+						{
+						bancoUsuario[cambio][8] ="inativo"
+						escreva("Usuario desativado")
+						Util.aguarde(2000)
+						pare
+						}
+		
+			senao se (entrada == "3")
+			{
+		            escreva("Saindo do programa...\n") 
+		            pare
+			}
+			senao{
+			escreva("Op√ß√£o inv√°lida. Tente novamente.\n")
+			}
+	     }  
+	     enquanto (1==1)
+     }
+	}
+	
+	funcao menuGoverno() //menu governo
+	  {
+	   
+	   //Tela inicial menu governo
+		cadeia entrada
+	     faca {
+	     	
+			limpa()// Limpa a tela para mostrar o menu
+		 // Exibe o t√≠tulo e as op√ß√µes do menu
+	     escreva("==========================================\n")
+		escreva("      PORTAS ABERTAS   \n")
+		escreva("  Sistema de Apoio ao Imigrante\n")
+		escreva("==========================================\n")
+		escreva("    MENU GOVERNO \n")
+		escreva("\nESCOLHA UMA OPCAO: ")
+		escreva("\n(1) CRIAR NOVO CADASTRO")
+		escreva("\n(2) ALTERAR CADASTRO")
+			escreva("\n(3) VER SITUACAO DOS CADASTROS")
+			escreva("\n(4) ATIVAR/DESATIVAR USUARIO")
+			escreva("\n(5) SAIR MENU GOVERNO\n")
+		     leia(entrada)
+		
+			 se 
+				(entrada == "1")
+					{   
+						cadastro() // Chamando fun??o de cadastro escolhido pelo usuario
+			  }senao se 
+				(entrada == "2")
+						{
+					    alterarCadastro() //Chamando fun??o de alterar cadastro escolhido pelo usuario
+						}
+				senao se 
+				   (entrada == "3")
+				      {
+				      	mostrarCadastro() //Chamando fun??o de mostrar cadastro escolhido pelo usuario
+				      }
+				      senao se 
+				   (entrada == "4")
+				      {
+				      	alterarstatus() //Chamando fun??o de mostrar cadastro escolhido pelo usuario
+				      }
+				      senao se 
+				   (entrada == "5")
+				      {
+		            escreva("Saindo do programa...\n") 
+		            // Saindo do menu governo
+				      
+				      }
+				      senao{
+				      	escreva("OpÔøΩÔøΩo invÔøΩlida. Tente novamente.\n")
+				      }
+	     }  
+	     enquanto (entrada != "5")
+	     		
+	    }
+    
+	funcao alterarCadastro(){ //Fun√ß√£o para alterar cadastros de imigrantes
+	
+		cadeia novoNome, novoEmail, novaSenha,stop
+	     
+	     limpa()// Limpa a tela para mostrar o t√≠tulo da se√ß√£o
+     escreva("     ALTERA√á√ÉO DE CADASTRO     ")
+	escreva("\nDigite o usuario que deseja alterar os dados: \n")
+	leia(usuario)// Recebe o nome de usu√°rio a ser alterado
+	mostrarCadastroUsuario()// Mostra os dados do usu√°rio atual
+	 
+		para (inteiro posicao = 0; posicao < tamanho; posicao++){
+			se (usuario == bancoUsuario[posicao][0])
+	          {  	
+	  			cambio = posicao
+		           //AlteraÔøΩÔøΩo de cadastro
+				alterarusuario()
+				alterarsenha()
+				alteraremail()
+				alterarnome()
+				alterar_doc_identificacao()  
+
+				consultar_data_nascimento() // Esta em desenvolvimento a alteracao das outras informacoes
+				consultar_pais()				
+				bancoUsuario[posicao][4] = dtnascimento
+				bancoUsuario[posicao][5] = pais
+		           
+				escreva("Cadastro alterado com sucesso!\n")
+		          Util.aguarde(400)
+				 
+	          }senao se(posicao == tamanho){
+		           escreva("Cadastro n√£o encontrado.\n")
+		           Util.aguarde(400)
+	        }
+			   
+		    	}
+		    	escreva("Para voltar ao MENU GOVERNO digite enter")
+		    	leia(stop)
+	   }         	          
+
+  	funcao mostrarCadastro(){ //fun√ß√£o para mostrar dados cadastrados
 
 		cadeia stop
-	     limpa()
-	     escreva("::::: Portal de Apoio ao Imigrante :::::  \n")
+	     limpa()// Limpa a tela
+	     // Cabe√ßalho do sistema
+	     escreva("==========================================\n")
+		escreva("      PORTAS ABERTAS   \n")
+		escreva("  Sistema de Apoio ao Imigrante\n")
+		escreva("==========================================\n")
 	     escreva("        MENU GOVERNO    \n")
 	     escreva(" DADOS CADASTRADOS :\n")
-	     escreva("\nNome\t\tsenha\t\tData_nascimento\t\tNacionalidade\t\tDocumento\t\tEmail")
+	     // Cabe√ßalho da tabela com os campos exibidos
+	     escreva("\nNome\t\tsenha\t\tData_nascimento\t\tNacionalidade\t\tDocumento\t\tEmail\t\t\t\tSitua√ß√£o")
 
      	para (inteiro posicao = 0; posicao < tamanho; posicao++){
 
-     	 escreva ("\n\n ",bancoUsuario[posicao][0], "\t\t ", bancoUsuario[posicao][1], "\t\t ", bancoUsuario[posicao][4],"\t\t\t\t",bancoUsuario[posicao][5],"\t\t\t\t",bancoUsuario[posicao][5],"\t\t",bancoUsuario[posicao][7],"\n")
-     	 		se(bancoUsuario[posicao][0] == ""){
-     	 		    pare
-     	 		}
+			se(bancoUsuario[posicao][0] == "")
+			{
+     	 		pare
+     	 	}
+     	 	senao
+     	 	{
+     	 escreva ("\n\n ",bancoUsuario[posicao][0], "\t\t ", "*****", "\t\t ", bancoUsuario[posicao][4],"\t\t",bancoUsuario[posicao][5],"\t\t",bancoUsuario[posicao][6],"\t\t\t\t",bancoUsuario[posicao][7],"\t\t\t",bancoUsuario[posicao][8],"\n")
+     	 	}
 
      	}
-     	escreva("Para voltar ao MENU GOVERNO digite enter")
+     	escreva("\nPara voltar ao MENU GOVERNO digite enter")
 	    	leia(stop)
   }
-   funcao mostrarCadastroUsuario(){ //funÁ„o para mostrar dados cadastrados
+  	
+  	funcao mostrarCadastroUsuario(){ //fun??o para mostrar dados cadastrados
 
 	    inteiro check =0
-	    limpa()
-	    escreva("::::: Portal de Apoio ao Imigrante :::::  \n")
+	     
+	    limpa()// Limpa a tela
+	    // Cabe√ßalho do sistema
+	   escreva("==========================================\n")
+	   escreva("      PORTAS ABERTAS   \n")
+	   escreva("  Sistema de Apoio ao Imigrante\n")
+	   escreva("==========================================\n")
 
      	para (inteiro posicao = 0; posicao < tamanho; posicao++){
 			se(bancoUsuario[posicao][0] == usuario){
 				escreva(" Usuario Cadastrado :\n")
 				escreva("\nNome\t\tsenha\t\tData_nascimento\t\tNacionalidade\t\tDocumento\t\tEmail\n")
-     	 		escreva ("\n\n ",bancoUsuario[posicao][0], "\t\t ", bancoUsuario[posicao][1], "\t\t ", bancoUsuario[posicao][4],"\t\t\t\t",bancoUsuario[posicao][5],"\t\t\t\t",bancoUsuario[posicao][5],"\t\t",bancoUsuario[posicao][7],"\n")
+     	 		escreva ("\n\n ",bancoUsuario[posicao][0], "\t\t ", "*****", "\t\t ", bancoUsuario[posicao][4],"\t\t",bancoUsuario[posicao][5],"\t\t",bancoUsuario[posicao][6],"\t\t\t",bancoUsuario[posicao][7],"\n")
 				check =1
 				pare
 		     }senao{}
 
      	}
      se (check == 0){
-     	escreva("\nUsu·rio n„o encontrado!\n")
+     	escreva("\nUsu√°rio n√£o encontrado!\n")
      }
       }
+
+    funcao logico validarEmail() {
+  	
+  	// Vari√°veis de controle
+    inteiro i, tamanhoEmail, posArroba = -1, posPonto = -1, contadorArroba = 0
+    logico check = verdadeiro
+    caracter c
     
+	// Obt√©m o n√∫mero de caracteres do email
+    tamanhoEmail = tx.numero_caracteres(email)
+    
+	// Verifica√ß√£o r√°pida se est√° vazio
+    se (email == "" ou tx.numero_caracteres(email) == 0) {
+        retorne falso
+    }
+   // Se o tamanho for zero, j√° √© inv√°lido
+    se (tamanhoEmail == 0) {
+        check = falso
+    }
+
+    // Percorre o email caractere por caractere
+    se (check) {
+        para (i = 0; i < tamanhoEmail; i++) {
+            c = tx.obter_caracter(email, i)
+
+		// Conta ocorr√™ncias de '@' e armazena sua posi√ß√£o
+            se (c == '@') {
+                contadorArroba = contadorArroba + 1
+                se (contadorArroba == 1) {
+                    posArroba = i
+                }
+            }
+		// Armazena posi√ß√£o do √∫ltimo '.'
+            se (c == '.') {
+                posPonto = i
+            }
+        }
+
+       // S√≥ pode haver um '@'
+        se (contadorArroba != 1) {
+            check = falso
+        }
+
+         // '@' n√£o pode ser o primeiro nem o √∫ltimo caractere
+        se (check e (posArroba == 0 ou posArroba == tamanhoEmail - 1)) {
+            check = falso
+        }
+
+        // '.' tem que existir e n√£o pode estar no fim
+        se (check e (posPonto == -1 ou posPonto == tamanhoEmail - 1)) {
+            check = falso
+        }
+
+       // '.' deve vir depois do '@' com pelo menos um caractere entre eles
+        se (check e (posPonto - posArroba <= 1)) {
+            check = falso
+        }
+
+         // '.' n√£o pode ser o primeiro nem o √∫ltimo caractere do email
+        se (check e (tx.obter_caracter(email, 0) == '.' ou tx.obter_caracter(email, tamanhoEmail - 1) == '.')) {
+            check = falso
+        }
+    }
+	// Retorna verdadeiro se passou em todas as valida√ß√µes
+    retorne check
+}
   }
+
+/* $$$ Portugol Studio $$$ 
+ * 
+ * Esta se√ß√£o do arquivo guarda informa√ß√µes do Portugol Studio.
+ * Voc√™ pode apag√°-la se estiver utilizando outro editor.
+ * 
+ * @POSICAO-CURSOR = 17279; 
+ * @DOBRAMENTO-CODIGO = [29, 120, 162, 175, 218, 241, 283, 295, 402, 570, 619, 647, 696, 711, 727, 790, 846, 885, 915, 941];
+ * @PONTOS-DE-PARADA = ;
+ * @SIMBOLOS-INSPECIONADOS = ;
+ * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
+ * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
+ */
