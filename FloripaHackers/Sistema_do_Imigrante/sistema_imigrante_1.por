@@ -1,7 +1,7 @@
 programa
 {
 
-  inclua biblioteca Util  // importando funcao util
+  inclua biblioteca Util --> u // importando funcao util
   inclua biblioteca Texto --> tx // importando funcao texto
   inclua biblioteca Tipos
 
@@ -28,9 +28,11 @@ programa
 	}
 	
 	funcao inicio()
-	{		
+	{	// Cria um usuário do governo (tipo 1)
 		criarUsuario("andre", "1234", "1","Andre da Silva","25/05/1990","AN","6890Y56","andre@outlook.com","ativo")
+		// Cria um usuário imigrante (tipo 2)
 		criarUsuario("luis", "6789", "2","Luis Wagner Britt","14/11/2000","BO","098567930" ,"luiskare@gmail.com","ativo")
+		// Chama a tela inicial do sistema
 		telainicial()
 		
 	}
@@ -38,16 +40,21 @@ programa
 	funcao login()
 	{
 		inteiro idade
-		inteiro auxiliar = 0
+		inteiro auxiliar = 0 // Usado para armazenar a posição do usuário no banco de dados
 
-		limpa()
+		limpa() // Limpa a tela
 			
 		faca
-		{
-			escreva("-------------- Sistema de Apoio ao Imigrante ------------\n")
+		{	// Exibe o cabeçalho do sistema
+			escreva("==========================================\n")
+			escreva("      PORTAS ABERTAS   \n")
+			escreva("  Sistema de Apoio ao Imigrante\n")
+			escreva("==========================================\n")
 			escreva("Para retornar ao site original digite 'q' e enter\n")
+			// Entrada do usuário
 		     escreva("Usuario: ")
 		     leia(usuario)
+		     // Verifica se o usuário deseja sair
 		     se 
 				(usuario == "q")
 				{
@@ -56,22 +63,25 @@ programa
 					limpa()
 					pare
 				}
+				// Entrada da senha
 		     escreva("Senha: ")
 		     leia(senha)
-			
+			// Procura a posição do usuário no banco
 			para (inteiro posicao = 0; posicao < tamanho; posicao++)
 				{
 				se (usuario ==	bancoUsuario[posicao][0])
-				{auxiliar = posicao
+				{
+					auxiliar = posicao // Guarda a posição caso encontre o usuário
 				}
 			
 				senao
 				{}
 				}
 				
-		
+			// Verifica se o nome de usuário e senha estão corretos
 			se (usuario == bancoUsuario[auxiliar][0] e senha == bancoUsuario[auxiliar][1])
-			{
+			{	
+				// Verifica se o usuário está ativo
 				se(bancoUsuario[auxiliar][8]!="ativo")
 				{
 					limpa()
@@ -84,16 +94,15 @@ programa
 					escreva("entrada OK")
 					Util.aguarde(1000)
 		   
-		   // Se o usuario for um usuario do governo abrir? o menu_governo, caso o usuario seja um imigrante abrir? o menu_imigrante
-		   // Aqui deveria se conectar ao banco de dados
-			
+					// Verifica o tipo de usuário:
+					// "1" = governo → direciona para o menu do governo
 						se 
 						(bancoUsuario[auxiliar][2] == "1")
 						{        
 							menuGoverno()
 							Util.aguarde(2000)
 						}
-		
+						// "2" = imigrante → direciona para menu de imigrante
 						senao se 
 						(bancoUsuario[auxiliar][2] == "2")
 						{
@@ -104,112 +113,122 @@ programa
 				}
 			}
 			senao
-			{        
+			{     
+				// Caso não encontre o usuário ou a senha esteja incorreta
 				escreva("Dados nao encontrados no sistema, verifique os dados e tente novamente")
 				Util.aguarde(2000)
 				limpa()
 			}
 
 		}
+		// Repete o loop enquanto o usuário não digitar "q"
 		enquanto (usuario != "q")
 		
 	}
 
 	funcao telainicial()
 	{
-		cadeia entrada
-
+		cadeia entrada// Variável para armazenar a escolha do usuário
 		faca{
-
+		// Exibe o cabeçalho do sistema
 		escreva("==========================================\n")
-		escreva(" \t\t     PORTAS ABERTAS   \n")
-		escreva(" Sistema de Apoio ao Imigrante\n")
+		escreva("       PORTAS ABERTAS   \n")
+		escreva("   Sistema de Apoio ao Imigrante\n")
 		escreva("==========================================\n")
-		escreva("Apoio para quem come�a uma nova vida longe de casa\n")
-		escreva("Nosso objetivo � acolher, informar e conectar, para que voc? se sinta em casa, onde quer que esteja.")
+		// Mensagem institucional
+		escreva("Apoio para quem começa uma nova vida longe de casa\n")
+		escreva("Nosso objetivo é acolher, informar e conectar, para que você se sinta em casa, onde quer que esteja.")
+		// Menu de opções
 		escreva("O que deseja fazer?\n")
 		escreva("1 - Cadastro\n")
 		escreva("2 - Log in\n")
 		leia(entrada)
-
+				// Verifica a escolha e direciona para a função correspondente
 				se 
 				(entrada == "1")
 				{   
-					cadastro()
+					cadastro() // Chama a função de cadastro
 				}
 
 					
 				senao se 
 				(entrada == "2")
 				{
-					login()
+					login() // Chama a função de login
 				}
 
 
 				senao
 				{        
+					// Caso a entrada não seja válida
 					escreva("Opcao invalida, elija o numero adequado")
-					Util.aguarde(2000)
-					limpa()
+					Util.aguarde(2000) // Pausa por 2 segundos
+					limpa() // Limpa a tela para nova tentativa
 				}
 
 		}
-		enquanto (infinito < 2)			
+		enquanto (infinito < 2)	// Laço infinito — mantém a tela ativa		
 		
 	}
 
 	funcao inteiro localizacao()
 	{
-
+		// Percorre todo o vetor de usuários
 		para (inteiro posicao = 0; posicao < tamanho; posicao++)
 		{
+			// Verifica se a posição está vazia
 			se (bancoUsuario[posicao][0] =="")
 			{
-				retorne posicao
+				retorne posicao  // Retorna a posição disponível
 			}
 		}
+		// Se não encontrar espaço disponível
 		retorne -1
 	}
 
 	funcao consultarnome()
 	{
 				
-		inteiro check = 0
+		inteiro check = 0 // Variável de controle para repetição
+
 
 		faca{
 
 		
-		escreva("Escolha um nome de usuario: ")
+		escreva("Escolha um nome de usuario: ") // Solicita entrada ao usuário
 		leia(usuario)
-		check = 0
-		inteiro resposta = Texto.numero_caracteres(usuario)
+		check = 0 // Reinicia o controle
+		inteiro resposta = Texto.numero_caracteres(usuario) // Conta o número de caracteres
 
+		// Verifica se o nome não está vazio e tem pelo menos 4 caracteres
 		se (usuario !="" e resposta >= 4)
 		{
+			// Verifica se o nome já está em uso no banco
 			para (inteiro posicao = 0; posicao < tamanho; posicao++)
 				{
-				se (usuario ==	bancoUsuario[posicao][0])
+				se (usuario ==	bancoUsuario[posicao][0]) // Nome já existente
 				{
 					check = 1
-					pare
+					pare // Sai do laço ao encontrar
 				}
-				}
+			}
+			// Se o nome já existir, exibe aviso
 			se (check == 1)
 			{
 				escreva("Nome de usuario ja utilizado\n")
 			}
 			senao
 			{
-				escreva("Usuario OK\n")
+				escreva("Usuario OK\n")  // Nome disponível
 			}	
 		}
 		senao
 		{
-			check = 1
+			check = 1 // Mantém o loop se for inválido
 			escreva("O campo deve ser preenchido com minimo 4 caracteres\n")
 		}
 		}
-		enquanto (check ==1)
+		enquanto (check ==1) // Repete até ser um nome válido e único
 
 		
 	}
@@ -220,11 +239,12 @@ programa
 		faca{
 		escreva("Escolha uma senha: ")
 		leia(senha)
-		inteiro resposta = Texto.numero_caracteres(senha)
+		inteiro resposta = Texto.numero_caracteres(senha) // Conta o tamanho
 
-		se (senha !="" e resposta >= 4) //garantir que a senha nao seja em branco e adicionar depois quantidade minima de caracteres
+		// Verifica se a senha não está vazia e tem pelo menos 4 caracteres
+		se (senha !="" e resposta >= 4) 
 			{
-				escreva("Senha OK\n")
+				escreva("Senha OK\n") // Senha válida
 				check = 1
 			}
 		senao
@@ -232,79 +252,88 @@ programa
 			escreva("Voce deve escolher uma senha com pelo menos 4 caracteres\n")
 		}
 			}
-		enquanto (check ==0)
+		enquanto (check ==0) // Repete até uma senha válida ser inserida
 	
 			
 	}
 
 	funcao consultaremail()
 	{
-		inteiro check = 0
+		inteiro check = 0  // Variável de controle para validação
 
 		faca
 		{
-		escreva("Digite seu email (caso nao tenha email deixe o campo em branco): ")
+		escreva("Digite seu email: ")
 		leia(email)
-		check = 0
-		inteiro resposta = Texto.numero_caracteres(usuario)
+		check = 0 // Reinicia a verificação
+		inteiro resposta = Texto.numero_caracteres(email)
 
+			// Verifica se o campo de email está vazio
 			se (email == "") 
+			{	
+				escreva("O email é obrigatório. Tente novamente!\n")
+            		check = 1 // Continua no loop
+            		
+			// Verifica se o email está em formato válido usando a função validarEmail()
+		    }senao se(nao validarEmail())
 			{
-			pare
+			 	escreva("Formato de email inválido. Exemplo válido: usuario@dominio.com\n")
+           		 check = 1  // Continua no loop
 			}
-			senao
-			{
+			 senao
+      		  {
+      		  	// Verifica se o email já existe no banco de dados
 				para (inteiro posicao = 0; posicao < tamanho; posicao++)
 				{
 				se (email ==	bancoUsuario[posicao][7])
-				{
-					check = 1
+				{	
+					check = 1 // Email já cadastrado, precisa alterar
+					escreva("\nEmail já utilizado, escolha outro!\n")
+					
 					pare
 				}
 			}
-			
-				}
-			se (check == 1)
-			{
-				escreva("Email j� utilizado, escolha outro\n")
-			}
-			senao
-			{
-				escreva("Email OK\n")
+			// Se passou todas as verificações, email está OK
+			se(check == 0) {
+				
+				escreva("Email OK\n") // Repete até o email ser aceito
 			}	
 		}
-		enquanto (check ==1)
-	}
+		
+	  }enquanto (check ==1)
+ }
 
 	funcao cadeia ehnumero(cadeia a)
 	{
+		// Verifica se a cadeia contém um único caractere numérico (0 a 9)
 		se (a == "0" ou a == "1" ou a == "2" ou a == "3" ou a == "4" ou a == "5" ou a == "6" ou a == "7" ou a == "8" ou a == "9")
 		{
-			retorne "valido"
+			retorne "valido" // Retorna "valido" se for número
 		}
 		senao
 		{
-			retorne "falso"
+			retorne "falso" // Caso contrário, retorna "falso"
 		}
 	}
 	
 	funcao consultar_data_nascimento()
 	{
-		inteiro check = 0
+		inteiro check = 0  // Variável de controle para validação da data
 
 		faca
 		{
 		escreva("Qual sua data de nascimento? (formato: DD/MM/YYYY): ")
 		leia(dtnascimento)
 		check = 0
-		inteiro resposta = Texto.numero_caracteres(dtnascimento)
+		inteiro resposta = Texto.numero_caracteres(dtnascimento)  // Conta o número de caracteres
 
-			se (resposta != 10) 
+			se (resposta != 10) // A data precisa ter exatamente 10 caracteres (ex: 01/01/2000)
 			{
 				escreva("formato invalido, tente novamente\n")
 			}
 			senao
 			{
+				// Extrai cada caractere da string para validação manual
 			cadeia a = Texto.extrair_subtexto(dtnascimento,0,1)
 			cadeia b = Texto.extrair_subtexto(dtnascimento,1,2)
 			cadeia c = Texto.extrair_subtexto(dtnascimento,2,3)
@@ -317,25 +346,25 @@ programa
 			cadeia j = Texto.extrair_subtexto(dtnascimento,9,10)
 
 			
-
+				// Verifica se o formato é DD/MM/AAAA, validando cada caractere
 				se(ehnumero(a)=="falso" ou ehnumero(b)=="falso" ou c!="/" ou ehnumero(d)=="falso" ou ehnumero(ee)=="falso" ou f!="/" ou ehnumero(g)=="falso" ou ehnumero(h)=="falso" ou ehnumero(i)=="falso" ou 
 				ehnumero(j)=="falso")
 				{
 					escreva("formato invalido, tente novamente\n")
 				}
 				senao
-				{
+				{	// Converte os trechos da string em números inteiros
 					inteiro dia = Tipos.cadeia_para_real(Texto.extrair_subtexto(dtnascimento,0,2))
 					inteiro mes = Tipos.cadeia_para_real(Texto.extrair_subtexto(dtnascimento,3,5))
 					inteiro ano = Tipos.cadeia_para_real(Texto.extrair_subtexto(dtnascimento,6,10))
-					
+					// Verifica se o ano está dentro de um intervalo aceitável
 					se (1920<=ano e ano<=2025)
-					{
+					{	// Verifica se o mês está entre 1 e 12
 						se (0<mes e mes<=12)
 						{
-							se(mes==2) // Validacoes para o mes de fevereiro
+							se(mes==2) // Caso especial para Fevereiro
 							{
-								se((ano-4*(ano/4))==0) // Checa se o ano foi bissexto ou nao
+								se((ano-4*(ano/4))==0) // Verifica se é ano bissexto
 								{
 									se(dia<=29)
 									{
@@ -348,7 +377,7 @@ programa
 								}
 								senao
 								{
-									se(dia<=28) // Em caso de ano nao bissexto
+									se(dia<=28) // Fevereiro em ano não bissexto
 									{
 										check = 1
 									}
@@ -358,6 +387,7 @@ programa
 									}
 								}
 							}
+							// Verifica meses com 31 dias
 							senao se(mes==1 ou mes==3 ou mes==5 ou mes==7 ou mes==8 ou mes==10 ou mes==12)
 							{
 								se(dia<=31)
@@ -368,7 +398,7 @@ programa
 								{
 									escreva("Data invalida, tente novamente\n")	
 								}
-							}
+							}// Demais meses com 30 dias
 							senao
 							{
 								se(dia<=30)
@@ -392,7 +422,7 @@ programa
 			}
 			
 		}
-		enquanto (check ==0)
+		enquanto (check ==0)  // Continua pedindo até a data ser considerada válida
 	}
 
 	funcao consultar_pais()
@@ -426,37 +456,35 @@ programa
 		"Western Sahara","Yemen","Zambia","Zimbabwe","Outros - Pais nao listado"}
 
 
-		inteiro indice
-		inteiro check = 0
+		inteiro indice   // Variável para controle dos índices dos vetores
+		inteiro check = 0  // Flag usada para controlar se o país foi encontrado
 		
 		faca
 		{
-		
-			//limpa()
-			//para (indice; indice <rango; indice++)
-			//{
-			//	escreva(codigos[indice],"\t\t\t",nomes[indice],"\n")
-			//}
+
+			// Apresenta ao usuário orientações sobre como digitar o código do país
 			escreva("\nDigite o codigo do pais (ex: Brasil, digite: BR), em caso de duvida selecione o numero de acordo com a letra inicial do seu pais")
 			escreva ("\nPaises de A-C: 1 \nPaises de D-H: 2 \nPaises de I-M: 3 \nPaises de N-S: 4 \nPaises de T-Z: 5")
 			escreva("\nQual sua nacionalidade? ")
 			leia(pais)
-			
+
+			// Verifica se o país digitado está entre os códigos existentes
 			para (inteiro posicao = 0; posicao < 250; posicao++)
 			{
 				se (pais == codigos[posicao])
 				{
-					check=1
+					check=1  // Marca como encontrado
 					pare
 				}
 	
 	
 			}
-
+			 // Se o usuário digitou um número (de 1 a 5), quer exibir lista parcial
 			se (pais =="1" ou pais=="2" ou pais=="3" ou pais=="4"ou pais=="5")
-			{
+			{	// Converte o valor digitado para número
 				inteiro opcao = Tipos.cadeia_para_real(Texto.extrair_subtexto(pais,0,1))
-			
+
+				// Escolhe qual lista de países exibir com base na letra inicial (dividido por blocos)
 				escolha (opcao)	
 					{
 					caso 1: //Paises de A-C
@@ -468,7 +496,7 @@ programa
 						}
 				 		pare   // Impede que as instru??es do caso 2 sejam executadas
 				 		
-				 	caso 2: 
+				 	caso 2:   // Países de D a H
 				 		limpa()
 					 	escreva("Codigo do pais\t\tNome do Pais\n")
 						para (indice =60; indice <102; indice++)
@@ -476,8 +504,8 @@ programa
 							escreva(codigos[indice],"\t\t\t",nomes[indice],"\n")
 						}
 				 		pare   // Impede que as instru??es do caso 2 sejam executadas
-				 		
-				 	caso 3: 
+				 		 
+				 	caso 3:  // Países de I a M 
 				 		limpa()
 					 	escreva("Codigo do pais\t\tNome do Pais\n")
 						para (indice =102; indice <153; indice++)
@@ -486,7 +514,7 @@ programa
 						}
 				 		pare
 				 		
-				 	caso 4: 
+				 	caso 4:  // Países de N a S
 				 		limpa()
 					 	escreva("Codigo do pais\t\tNome do Pais\n")
 						para (indice =153; indice <217; indice++)
@@ -495,7 +523,7 @@ programa
 						}
 				 		pare
 
-				 	caso 5: 
+				 	caso 5:  // Países de T a Z
 				 		limpa()
 					 	escreva("Codigo do pais\t\tNome do Pais\n")
 						para (indice =217; indice <250; indice++)
@@ -506,12 +534,12 @@ programa
 					}
 			}
 		 	senao
-		 	{
+		 	{	// Se o país não for número e não foi encontrado antes, verifica novamente nos códigos
 		 		para (inteiro posicao = 0; posicao < 250; posicao++)
 				{
 					se (pais == codigos[posicao])
 					{
-						check=1
+						check=1  // Marca como válido
 						pare
 					}		
 				}
@@ -519,63 +547,76 @@ programa
 			
 
 		}
-		enquanto (check==0)
+		enquanto (check==0)  // Repete até que o código do país seja válido
 		
 	}
 		
-	funcao cadastro()
+	funcao cadastro()  // Função responsável por cadastrar um novo imigrante no sistema
 	{
 
 	cadeia nomecompleto, dt_nascimento, nacionalidade, doc_identificacao
-	inteiro check = 0
+	inteiro check = 0  // Variável auxiliar que pode ser usada para controle de validações
 
 	limpa()
-	escreva("      :::::   Portal de Apoio ao Imigrante :::::  \n")
-	// escreva("Escolha um nome de usuario: ")
-	// leia(usuario)
-	consultarnome() // Validar? o nome de usuario
-	consultarsenha()
+	escreva("==========================================\n")
+	escreva("      PORTAS ABERTAS   \n")
+	escreva("  Sistema de Apoio ao Imigrante\n")
+	escreva("==========================================\n")
+
+	// As linhas abaixo coletam os dados do imigrante, utilizando subfunções para cada campo onde necessário
+	
+	consultarnome() // Validação do nome de usuário por meio de função separada
+	
+	consultarsenha()  // Validação da senha por meio de função separada
+	
 	escreva("Qual seu nome completo? ")
 	leia(nomecompleto)
-	consultar_data_nascimento()
-	consultar_pais()
-	escreva("Qual o numero/codigo do seu documento de identifica��o? ")
+	consultar_data_nascimento() // Chama subfunção para obter a data de nascimento
+	consultar_pais()  // Chama subfunção para obter a nacionalidade
+	escreva("Qual o numero/codigo do seu documento de identificação? ")
 	leia(doc_identificacao)
+	// Validação e leitura do email
 	consultaremail()
-	
+	escreva("\tCadastro Realizado!")
 
-	// Adiciona os dados ao banco de dados
+	// Armazena os dados coletados no vetor de usuários (banco de dados em memória)
 	posicaoAuxiliar = localizacao()
 	bancoUsuario[posicaoAuxiliar][0] = usuario
 	bancoUsuario[posicaoAuxiliar][1] = senha
-	bancoUsuario[posicaoAuxiliar][2] = "2" // Deve ser sempre assignado o numero 2, pois � um cadastro de Imigrante
+	bancoUsuario[posicaoAuxiliar][2] = "2"  // Código "2" indica cadastro do tipo imigrante
 	bancoUsuario[posicaoAuxiliar][3] = nomecompleto
 	bancoUsuario[posicaoAuxiliar][4] = dtnascimento
 	bancoUsuario[posicaoAuxiliar][5] = pais
 	bancoUsuario[posicaoAuxiliar][6] = doc_identificacao
 	bancoUsuario[posicaoAuxiliar][7] = email
+	bancoUsuario[posicaoAuxiliar][8] = "ativo"  // Situação do cadastro (ativo por padrão)
+
+	// Pausa a execução por 2 segundos para que o usuário veja a confirmação
+	u.aguarde(2000)
+	limpa()
 	}		
 
 	funcao alterarusuario()
 	{
 				
-		inteiro check = 0
+		inteiro check = 0  // Variável de controle do loop (1 se houver erro, 0 se sucesso)
 
 		faca{
 
 		
-		escreva("Escolha novo nome de usuario (para manter o nome de usuario deixe em branco e aperte enter): ")
+		escreva("\nEscolha novo nome de usuario (para manter o nome de usuario deixe em branco e aperte enter): ")
 		leia(usuario)
 		check = 0
-		inteiro resposta = Texto.numero_caracteres(usuario)
+		inteiro resposta = Texto.numero_caracteres(usuario) // Conta os caracteres do nome digitado
 
 		se (usuario =="")
 		{
 			pare
 		}
-		senao se(resposta >= 4)
+		senao se(resposta >= 4)    // Se tem 4 ou mais caracteres
 
-		{
+		{	
+			// Verifica se o nome de usuário já existe no banco
 			para (inteiro posicao = 0; posicao < tamanho; posicao++)
 				{
 				se (usuario ==	bancoUsuario[posicao][0])
@@ -589,14 +630,15 @@ programa
 				escreva("Nome de usuario ja utilizado\n")
 			}
 			senao
-			{
+			{	
+				// Se nome é válido e não usado, atualiza o banco
 				bancoUsuario[cambio][0] = usuario
 				escreva("Usuario alterado com sucesso")
 			}	
 		}
 		senao
 		{
-			check = 1
+			check = 1   // Erro por nome muito curto
 			escreva("O campo deve ser preenchido com minimo 4 caracteres\n")
 		}
 		}
@@ -609,26 +651,27 @@ programa
 	{
 		inteiro check = 0
 		faca{
-			escreva("Escolha uma senha nova (para manter a senha original, deixe em branco): ")
+			escreva("\nEscolha uma senha nova (para manter a senha original, deixe em branco): ")
 			leia(senha)
-			inteiro resposta = Texto.numero_caracteres(senha)
+			inteiro resposta = Texto.numero_caracteres(senha)  // Conta os caracteres da senha
 	
 			se (senha=="")
 			{
-				pare
+				pare  // Se estiver em branco, mantém a senha atual
 			}
-			senao se (resposta >= 4) //garantir que a senha nao seja em branco e adicionar depois quantidade minima de caracteres
-				{
+			senao se (resposta >= 4) // Valida mínimo de 4 caracteres
+				{	
+					// Atualiza a senha no banco
 					bancoUsuario[cambio][1] = senha
 					escreva("Senha alterada com sucesso\n")
 					pare
 				}
 			senao
-			{
+			{	// Mensagem de erro se senha for curta demais
 				escreva("Voce deve escolher uma senha com pelo menos 4 caracteres\n")
 			}
 		}
-		enquanto (check ==0)
+		enquanto (check ==0)  // Loop continua enquanto o usuário não acertar
 	
 			
 	}
@@ -636,7 +679,8 @@ programa
 	funcao alteraremail()
 	{
 				
-		inteiro check = 0
+		inteiro check = 0 // Variável para controle do loop
+
 
 		faca
 		{
@@ -644,22 +688,23 @@ programa
 		
 			escreva("Escolha novo email (para manter o email anterior deixe o campo em branco e aperte enter): ")
 			leia(email)
-			check = 0
+			check = 0 // Reinicia o check
 	
 			se (email =="")
 			{
+				// Se o campo estiver em branco, sai da função sem alterar nada
 				pare
 			}
 			senao
 			{	
-				// Verifica se o email é válido no formato
+				// Primeiro, valida o formato do email usando a função validarEmail
 				se (nao validarEmail()) {
 				escreva("Formato de email inválido! Tente novamente.\n")
-				check = 1 // continua no loop
+				check = 1   // Continua no loop até digitar corretamente
 			   }
 				senao
 			   {
-			 
+			 		// Verifica se o email já está em uso no banco
 				para (inteiro posicao = 0; posicao < tamanho; posicao++)
 					{
 					se (email == bancoUsuario[posicao][7])
@@ -669,7 +714,7 @@ programa
 						pare
 					}
 				}				
-					// Se passou por todas as verificações
+					// Se passou nas verificações, o email pode ser alterado
 				se (check == 0)
 				{
 					bancoUsuario[cambio][7] = email
@@ -679,18 +724,20 @@ programa
 			}
 		}
       }	
-		enquanto (check ==1)
+		enquanto (check ==1)  // Continua enquanto houver erro
   }
 
 	funcao alterarnome()
 	{
-		escreva("Escolha novo nome (para manter o nome original, deixe em branco): ")
+		escreva("Escolha novo nome (para manter o nome original, deixe em branco): \n")
 		leia(nome)
 		se (nome =="")
 			{
+				// Não altera nada se o campo estiver em branco
 			}
 		senao
 		{
+			// Atualiza o nome na posição atual do usuário (cambio)
 			bancoUsuario[cambio][3] = nome
 			escreva("Nome alterado com sucesso")
 		}
@@ -699,48 +746,56 @@ programa
 
 	funcao alterar_doc_identificacao()
 		{
-			cadeia doc
-			escreva("Digite o numero de identifica��o (para manter o nome original, deixe em branco): ")
+			cadeia doc  // Variável local para o novo documento
+			
+			escreva("\nDigite o numero de identificação (para manter o nome original, deixe em branco): ")
 			leia(doc)
-			se (nome =="")
+			se (doc =="")
 				{
+					// Mantém o documento atual
 				}
 			senao
-			{
+			{	// Atualiza o documento na posição do usuário (cambio)
 				bancoUsuario[cambio][6] = doc
-				escreva("Documento alterado com sucesso")
+				escreva("Documento alterado com sucesso\n")
 			}
 			
 		}
 
-	funcao alterarstatus()
+	funcao alterarstatus()  // Função para alterar o status (ativo/inativo) de um usuário do sistema
 	{
-	    inteiro check =0
+	    inteiro check =0 // Usado para verificar se o usuário foi encontrado
 	    cadeia entrada
 	    limpa()
 	    escreva("Digite usuario:  \n")
 	    leia(entrada)
 
+		// Procura o usuário informado no banco de dados
      	para (inteiro posicao = 0; posicao < tamanho; posicao++){
+     		// Se o usuário for encontrado
 			se(bancoUsuario[posicao][0] == entrada){
+				// Exibe os dados do usuário encontrado (com a senha oculta)
 				escreva(" Usuario Cadastrado :\n")
 				escreva("\nNome\t\tsenha\t\tData_nascimento\t\tNacionalidade\t\tDocumento\t\tEmail\n")
-     	 		escreva ("\n\n ",bancoUsuario[posicao][0], "\t\t ", "*****", "\t\t ", bancoUsuario[posicao][4],"\t\t",bancoUsuario[posicao][5],"\t\t",bancoUsuario[posicao][6],"\t\t",bancoUsuario[posicao][7],"\n")
-				check =1
-				cambio = posicao
-				pare
+     	 		escreva ("\n\n ",bancoUsuario[posicao][0], "\t\t ", "*****", "\t\t ", bancoUsuario[posicao][4],"\t\t",bancoUsuario[posicao][5],"\t\t\t",bancoUsuario[posicao][6],"\t\t\t",bancoUsuario[posicao][7],"\n")
+				
+				check =1 // Marca que encontrou o usuário
+				cambio = posicao // Salva a posição para usar na alteração depois
+				
+				pare // Encerra o laço de busca
 		     }senao{}
      	}
+     	// Se o usuário não foi encontrado
      se (check == 0){
-     	escreva("\nUsu�rio n�o encontrado!\n")
+     	escreva("\nUsuario não encontrado!\n")
      }
      senao
      {
      	
      	 faca {
 	     	
-
-			escreva("\n Selecione a op��o desejada")
+			// Menu de alteração de status
+			escreva("\n Selecione a opção desejada")
 			escreva("\n(1)- Para ATIVAR usuario")
 			escreva("\n(2) - Para DESATIVAR usuario")
 			escreva("\n(3) - Voltar\n")
@@ -750,6 +805,7 @@ programa
 			 se 
 				(entrada == "1")
 					{   
+						// Ativa o usuário
 						bancoUsuario[cambio][8] ="ativo"
 						escreva("Usuario ativo")
 						Util.aguarde(2000)
@@ -757,6 +813,7 @@ programa
 			  }senao se 
 				(entrada == "2")
 						{
+							// Desativa o usuário
 						bancoUsuario[cambio][8] ="inativo"
 						escreva("Usuario desativado")
 						Util.aguarde(2000)
@@ -764,60 +821,64 @@ programa
 						}
 		
 			senao se (entrada == "3")
-			{
+			{		// Sai do menu de status
 		            escreva("Saindo do programa...\n") 
 		            pare
 			}
 			senao{
-			escreva("Op��o inv�lida. Tente novamente.\n")
+				// Caso o usuário digite uma opção inválida
+			escreva("Opção inválida. Tente novamente.\n")
 			}
 	     }  
-	     enquanto (1==1)
+	     enquanto (1==1)  // Laço infinito até o usuário escolher uma opção válida
      }
 	}
 	
 	funcao menuGoverno() //menu governo
 	  {
+	   
 	   //Tela inicial menu governo
 		cadeia entrada
 	     faca {
 	     	
 			limpa()
-		     escreva(":::::  Portal de Apoio ao Imigrante :::::  \n")
-			escreva("    MENU GOVERNO \n")
-			escreva("\nESCOLHA UMA OP��O: ")
-			escreva("\n(1) CRIAR NOVO CADASTRO")
-			escreva("\n(2) ALTERAR CADASTRO")
-			escreva("\n(3) VER SITUA��O DOS CADASTROS")
+		 // Exibe o título e as opções do menu
+	     escreva("==========================================\n")
+		escreva("      PORTAS ABERTAS   \n")
+		escreva("  Sistema de Apoio ao Imigrante\n")
+		escreva("==========================================\n")
+		escreva("    MENU GOVERNO \n")
+		escreva("\nESCOLHA UMA OPCAO: ")
+		escreva("\n(1) CRIAR NOVO CADASTRO")
+		escreva("\n(2) ALTERAR CADASTRO")
+			escreva("\n(3) VER SITUACAO DOS CADASTROS")
 			escreva("\n(4) ATIVAR/DESATIVAR USUARIO")
 			escreva("\n(5) SAIR MENU GOVERNO\n")
 		     leia(entrada)
 		
-		
 			 se 
 				(entrada == "1")
 					{   
-						cadastro() // Chamando fun??o de cadastro escolhido pelo usuario
+						cadastro() // Chamando funcao de cadastro escolhido pelo usuario
 			  }senao se 
 				(entrada == "2")
 						{
-					    alterarCadastro() //Chamando fun??o de alterar cadastro escolhido pelo usuario
+					    alterarCadastro() //Chamando funcao de alterar cadastro escolhido pelo usuario
 						}
 				senao se 
 				   (entrada == "3")
 				      {
-				      	mostrarCadastro() //Chamando fun??o de mostrar cadastro escolhido pelo usuario
+				      	mostrarCadastro() //Chamando funcao de mostrar cadastro escolhido pelo usuario
 				      }
 				      senao se 
 				   (entrada == "4")
 				      {
-				      	alterarstatus() //Chamando fun??o de mostrar cadastro escolhido pelo usuario
+				      	alterarstatus() //Chamando funcao de mostrar cadastro escolhido pelo usuario
 				      }
 				      senao se 
 				   (entrada == "5")
 				      {
 		            escreva("Saindo do programa...\n") 
-		            // Saindo do menu governo
 				      
 				      }
 				      senao{
@@ -828,29 +889,27 @@ programa
 	     		
 	    }
     
-	funcao alterarCadastro(){ //Fun??o para alterar cadastros de imigrantes
+	funcao alterarCadastro(){ //Função para alterar cadastros de imigrantes
 	
 		cadeia novoNome, novoEmail, novaSenha,stop
 	     
 	     limpa()
-	     escreva("     ALTERA��O DE CADASTRO     ")
-		escreva("\nDigite o usuario que deseja alterar os dados: \n")
-		leia(usuario)
-		mostrarCadastroUsuario()
-		
+     escreva("     ALTERAÇÃO DE CADASTRO     ")
+	escreva("\nDigite o usuario que deseja alterar os dados: \n")
+	leia(usuario)
+	mostrarCadastroUsuario()// Mostra os dados do usuário atual buscado
 	 
 		para (inteiro posicao = 0; posicao < tamanho; posicao++){
 			se (usuario == bancoUsuario[posicao][0])
 	          {  	
 	  			cambio = posicao
-		           //Altera��o de cadastro
+		           //Alteracao de cadastro
 				alterarusuario()
 				alterarsenha()
 				alteraremail()
 				alterarnome()
 				alterar_doc_identificacao()  
-
-				consultar_data_nascimento() // Esta em desenvolvimento a alteracao das outras informacoes
+				consultar_data_nascimento() 
 				consultar_pais()				
 				bancoUsuario[posicao][4] = dtnascimento
 				bancoUsuario[posicao][5] = pais
@@ -859,7 +918,7 @@ programa
 		          Util.aguarde(400)
 				 
 	          }senao se(posicao == tamanho){
-		           escreva("Cadastro n�o encontrado.\n")
+		           escreva("Cadastro não encontrado.\n")
 		           Util.aguarde(400)
 	        }
 			   
@@ -868,14 +927,19 @@ programa
 		    	leia(stop)
 	   }         	          
 
-  	funcao mostrarCadastro(){ //fun??o para mostrar dados cadastrados
+  	funcao mostrarCadastro(){ //função para mostrar dados cadastrados
 
 		cadeia stop
 	     limpa()
-	     escreva("::::: Portal de Apoio ao Imigrante :::::  \n")
+
+	     escreva("==========================================\n")
+		escreva("      PORTAS ABERTAS   \n")
+		escreva("  Sistema de Apoio ao Imigrante\n")
+		escreva("==========================================\n")
 	     escreva("        MENU GOVERNO    \n")
 	     escreva(" DADOS CADASTRADOS :\n")
-	     escreva("\nNome\t\tsenha\t\tData_nascimento\t\tNacionalidade\t\tDocumento\t\tEmail")
+	     // Cabeçalho da tabela com os campos exibidos
+	     escreva("\nNome\t\tsenha\t\tData_nascimento\t\tNacionalidade\t\tDocumento\t\tEmail\t\t\t\tSituação")
 
      	para (inteiro posicao = 0; posicao < tamanho; posicao++){
 
@@ -885,7 +949,7 @@ programa
      	 	}
      	 	senao
      	 	{
-     	 escreva ("\n\n ",bancoUsuario[posicao][0], "\t\t ", "*****", "\t\t ", bancoUsuario[posicao][4],"\t\t",bancoUsuario[posicao][5],"\t\t",bancoUsuario[posicao][6],"\t\t",bancoUsuario[posicao][7],"\n")
+     	 escreva ("\n\n ",bancoUsuario[posicao][0], "\t\t ", "*****", "\t\t ", bancoUsuario[posicao][4],"\t\t",bancoUsuario[posicao][5],"\t\t",bancoUsuario[posicao][6],"\t\t\t\t",bancoUsuario[posicao][7],"\t\t\t",bancoUsuario[posicao][8],"\n")
      	 	}
 
      	}
@@ -893,24 +957,29 @@ programa
 	    	leia(stop)
   }
   	
-  	funcao mostrarCadastroUsuario(){ //fun??o para mostrar dados cadastrados
+  	funcao mostrarCadastroUsuario(){ //funcao para mostrar dados cadastrados de cada usuario buscado
 
 	    inteiro check =0
+	     
 	    limpa()
-	    escreva("::::: Portal de Apoio ao Imigrante :::::  \n")
+	   
+	   escreva("==========================================\n")
+	   escreva("      PORTAS ABERTAS   \n")
+	   escreva("  Sistema de Apoio ao Imigrante\n")
+	   escreva("==========================================\n")
 
      	para (inteiro posicao = 0; posicao < tamanho; posicao++){
 			se(bancoUsuario[posicao][0] == usuario){
 				escreva(" Usuario Cadastrado :\n")
 				escreva("\nNome\t\tsenha\t\tData_nascimento\t\tNacionalidade\t\tDocumento\t\tEmail\n")
-     	 		escreva ("\n\n ",bancoUsuario[posicao][0], "\t\t ", "*****", "\t\t ", bancoUsuario[posicao][4],"\t\t",bancoUsuario[posicao][5],"\t\t\t\t",bancoUsuario[posicao][6],"\t\t",bancoUsuario[posicao][7],"\n")
+     	 		escreva ("\n\n ",bancoUsuario[posicao][0], "\t\t ", "*****", "\t\t ", bancoUsuario[posicao][4],"\t\t",bancoUsuario[posicao][5],"\t\t",bancoUsuario[posicao][6],"\t\t\t",bancoUsuario[posicao][7],"\n")
 				check =1
 				pare
 		     }senao{}
 
      	}
      se (check == 0){
-     	escreva("\nUsu�rio n�o encontrado!\n")
+     	escreva("\nUsuário não encontrado!\n")
      }
       }
 
@@ -980,13 +1049,14 @@ programa
     retorne check
 }
   }
+
 /* $$$ Portugol Studio $$$ 
  * 
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 19033; 
- * @DOBRAMENTO-CODIGO = [29, 37, 117, 160, 173, 216, 239, 278, 290, 397, 525, 558, 607, 684, 699, 715, 778, 870, 895];
+ * @POSICAO-CURSOR = 3875; 
+ * @DOBRAMENTO-CODIGO = [39, 173, 188, 235, 259, 305, 318, 427, 553, 598, 649, 678, 729, 746, 764, 836, 891, 929, 959, 985];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
