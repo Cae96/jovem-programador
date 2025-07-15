@@ -45,11 +45,7 @@ programa
 		limpa() // Limpa a tela
 			
 		faca
-<<<<<<< HEAD
 		{	// Exibe o cabeçalho do sistema
-=======
-		{
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
 			escreva("==========================================\n")
 			escreva("      PORTAS ABERTAS   \n")
 			escreva("  Sistema de Apoio ao Imigrante\n")
@@ -132,15 +128,11 @@ programa
 
 	funcao telainicial()
 	{
-<<<<<<< HEAD
 		cadeia entrada// Variável para armazenar a escolha do usuário
-=======
-		cadeia entrada
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
+
 		faca{
 		// Exibe o cabeçalho do sistema
 		escreva("==========================================\n")
-<<<<<<< HEAD
 		escreva("       PORTAS ABERTAS   \n")
 		escreva("   Sistema de Apoio ao Imigrante\n")
 		escreva("==========================================\n")
@@ -148,13 +140,6 @@ programa
 		escreva("Apoio para quem começa uma nova vida longe de casa\n")
 		escreva("Nosso objetivo é acolher, informar e conectar, para que você se sinta em casa, onde quer que esteja.")
 		// Menu de opções
-=======
-		escreva(" \t\t     PORTAS ABERTAS   \n")
-		escreva("    Sistema de Apoio ao Imigrante\n")
-		escreva("==========================================\n")
-		escreva("Apoio para quem começa uma nova vida longe de casa\n")
-		escreva("Nosso objetivo é acolher, informar e conectar, para que você se sinta em casa, onde quer que esteja.")
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
 		escreva("O que deseja fazer?\n")
 		escreva("1 - Cadastro\n")
 		escreva("2 - Log in\n")
@@ -288,7 +273,6 @@ programa
 			se (email == "") 
 			{	
 				escreva("O email é obrigatório. Tente novamente!\n")
-<<<<<<< HEAD
             		check = 1 // Continua no loop
             		
 			// Verifica se o email está em formato válido usando a função validarEmail()
@@ -299,42 +283,22 @@ programa
 			}
 			 senao
       		  {
-      		  	// Verifica se o email já existe no banco de dados
-=======
-            		check = 1
-			
-		    }senao se(nao validarEmail())
-			{
-			 	escreva("Formato de email inválido. Exemplo válido: usuario@dominio.com\n")
-           		 check = 1
-			}
-			 senao
-      		  {
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
+
 				para (inteiro posicao = 0; posicao < tamanho; posicao++)
 				{
 				se (email ==	bancoUsuario[posicao][7])
 				{	
-<<<<<<< HEAD
 					check = 1 // Email já cadastrado, precisa alterar
-=======
-					check = 1
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
 					escreva("\nEmail já utilizado, escolha outro!\n")
 					
 					pare
 				}
 			}
-<<<<<<< HEAD
 			// Se passou todas as verificações, email está OK
 			se(check == 0) {
 				
 				escreva("Email OK\n") // Repete até o email ser aceito
-=======
-			se(check == 0) {
-				
-				escreva("Email OK\n")
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
+
 			}	
 		}
 		
@@ -600,7 +564,6 @@ programa
 	escreva("      PORTAS ABERTAS   \n")
 	escreva("  Sistema de Apoio ao Imigrante\n")
 	escreva("==========================================\n")
-<<<<<<< HEAD
 
 	// As linhas abaixo coletam os dados do imigrante, utilizando subfunções para cada campo onde necessário
 	
@@ -612,16 +575,6 @@ programa
 	leia(nomecompleto)
 	consultar_data_nascimento() // Chama subfunção para obter a data de nascimento
 	consultar_pais()  // Chama subfunção para obter a nacionalidade
-=======
-	// escreva("Escolha um nome de usuario: ")
-	// leia(usuario)
-	consultarnome() // Validar? o nome de usuario
-	consultarsenha()
-	escreva("Qual seu nome completo? ")
-	leia(nomecompleto)
-	consultar_data_nascimento()
-	consultar_pais()
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
 	escreva("Qual o numero/codigo do seu documento de identificação? ")
 	leia(doc_identificacao)
 	// Validação e leitura do email
@@ -638,14 +591,9 @@ programa
 	bancoUsuario[posicaoAuxiliar][5] = pais
 	bancoUsuario[posicaoAuxiliar][6] = doc_identificacao
 	bancoUsuario[posicaoAuxiliar][7] = email
-<<<<<<< HEAD
 	bancoUsuario[posicaoAuxiliar][8] = "ativo"  // Situação do cadastro (ativo por padrão)
 
 	// Pausa a execução por 2 segundos para que o usuário veja a confirmação
-=======
-	bancoUsuario[posicaoAuxiliar][8] = "ativo"
-
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
 	u.aguarde(2000)
 	limpa()
 	}		
@@ -800,12 +748,8 @@ programa
 
 	funcao alterar_doc_identificacao()
 		{
-<<<<<<< HEAD
-			cadeia doc  // Variável local para o novo documento
+		cadeia doc  // Variável local para o novo documento
 			
-=======
-			cadeia doc
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
 			escreva("\nDigite o numero de identificação (para manter o nome original, deixe em branco): ")
 			leia(doc)
 			se (doc =="")
@@ -816,8 +760,7 @@ programa
 			{	// Atualiza o documento na posição do usuário (cambio)
 				bancoUsuario[cambio][6] = doc
 				escreva("Documento alterado com sucesso\n")
-			}
-			
+			}	
 		}
 
 	funcao alterarstatus()  // Função para alterar o status (ativo/inativo) de um usuário do sistema
@@ -836,17 +779,12 @@ programa
 				escreva(" Usuario Cadastrado :\n")
 				escreva("\nNome\t\tsenha\t\tData_nascimento\t\tNacionalidade\t\tDocumento\t\tEmail\n")
      	 		escreva ("\n\n ",bancoUsuario[posicao][0], "\t\t ", "*****", "\t\t ", bancoUsuario[posicao][4],"\t\t",bancoUsuario[posicao][5],"\t\t\t",bancoUsuario[posicao][6],"\t\t\t",bancoUsuario[posicao][7],"\n")
-<<<<<<< HEAD
 				
 				check =1 // Marca que encontrou o usuário
 				cambio = posicao // Salva a posição para usar na alteração depois
+		 
+				pare // Encerra o laço de bus
 				
-				pare // Encerra o laço de busca
-=======
-				check =1
-				cambio = posicao
-				pare
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
 		     }senao{}
      	}
      	// Se o usuário não foi encontrado
@@ -858,11 +796,7 @@ programa
      	
      	 faca {
 	     	
-<<<<<<< HEAD
 			// Menu de alteração de status
-=======
-
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
 			escreva("\n Selecione a opção desejada")
 			escreva("\n(1)- Para ATIVAR usuario")
 			escreva("\n(2) - Para DESATIVAR usuario")
@@ -894,29 +828,24 @@ programa
 		            pare
 			}
 			senao{
-<<<<<<< HEAD
+
 				// Caso o usuário digite uma opção inválida
-=======
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
+
 			escreva("Opção inválida. Tente novamente.\n")
 			}
 	     }  
 	     enquanto (1==1)  // Laço infinito até o usuário escolher uma opção válida
      }
-	}
+ }
 	
 	funcao menuGoverno() //menu governo
 	  {
-	   
-	   //Tela inicial menu governo
+
 		cadeia entrada
 	     faca {
-	     	
-<<<<<<< HEAD
-			limpa()
-=======
+
 			limpa()// Limpa a tela para mostrar o menu
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
+
 		 // Exibe o título e as opções do menu
 	     escreva("==========================================\n")
 		escreva("      PORTAS ABERTAS   \n")
@@ -926,10 +855,10 @@ programa
 		escreva("\nESCOLHA UMA OPCAO: ")
 		escreva("\n(1) CRIAR NOVO CADASTRO")
 		escreva("\n(2) ALTERAR CADASTRO")
-			escreva("\n(3) VER SITUACAO DOS CADASTROS")
-			escreva("\n(4) ATIVAR/DESATIVAR USUARIO")
-			escreva("\n(5) SAIR MENU GOVERNO\n")
-		     leia(entrada)
+		escreva("\n(3) VER SITUACAO DOS CADASTROS")
+		escreva("\n(4) ATIVAR/DESATIVAR USUARIO")
+		escreva("\n(5) SAIR MENU GOVERNO\n")
+		leia(entrada)
 		
 			 se 
 				(entrada == "1")
@@ -957,7 +886,7 @@ programa
 				      
 				      }
 				      senao{
-				      	escreva("Op��o inv�lida. Tente novamente.\n")
+				      	escreva("Opcao invalida. Tente novamente.\n")
 				      }
 	     }  
 	     enquanto (entrada != "5")
@@ -966,26 +895,21 @@ programa
     
 	funcao alterarCadastro(){ //Função para alterar cadastros de imigrantes
 	
-		cadeia novoNome, novoEmail, novaSenha,stop
-	     
-<<<<<<< HEAD
-	     limpa()
+	cadeia stop
+     inteiro encontrado = 0
+
+	limpa()
      escreva("     ALTERAÇÃO DE CADASTRO     ")
 	escreva("\nDigite o usuario que deseja alterar os dados: \n")
 	leia(usuario)
 	mostrarCadastroUsuario()// Mostra os dados do usuário atual buscado
-=======
-	     limpa()// Limpa a tela para mostrar o título da seção
-     escreva("     ALTERAÇÃO DE CADASTRO     ")
-	escreva("\nDigite o usuario que deseja alterar os dados: \n")
-	leia(usuario)// Recebe o nome de usuário a ser alterado
-	mostrarCadastroUsuario()// Mostra os dados do usuário atual
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
-	 
+
+
 		para (inteiro posicao = 0; posicao < tamanho; posicao++){
 			se (usuario == bancoUsuario[posicao][0])
 	          {  	
 	  			cambio = posicao
+	  			encontrado = 1
 		           //Alteracao de cadastro
 				alterarusuario()
 				alterarsenha()
@@ -993,33 +917,33 @@ programa
 				alterarnome()
 				alterar_doc_identificacao()  
 				consultar_data_nascimento() 
-				consultar_pais()				
+				consultar_pais()
+				// Atualiza os dados diretamente no banco		
 				bancoUsuario[posicao][4] = dtnascimento
 				bancoUsuario[posicao][5] = pais
 		           
 				escreva("Cadastro alterado com sucesso!\n")
 		          Util.aguarde(400)
-				 
-	          }senao se(posicao == tamanho){
+		         pare // Interrompe o loop após encontrar o usuário
+	          }
+		}
+			// Se não encontrou o usuário
+	           se(encontrado == 0){
+	           	
 		           escreva("Cadastro não encontrado.\n")
 		           Util.aguarde(400)
 	        }
 			   
-		    	}
+		    	
 		    	escreva("Para voltar ao MENU GOVERNO digite enter")
 		    	leia(stop)
 	   }         	          
-
   	funcao mostrarCadastro(){ //função para mostrar dados cadastrados
 
 		cadeia stop
-<<<<<<< HEAD
-	     limpa()
-
-=======
 	     limpa()// Limpa a tela
 	     // Cabeçalho do sistema
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
+
 	     escreva("==========================================\n")
 		escreva("      PORTAS ABERTAS   \n")
 		escreva("  Sistema de Apoio ao Imigrante\n")
@@ -1049,13 +973,8 @@ programa
 
 	    inteiro check =0
 	     
-<<<<<<< HEAD
-	    limpa()
-	   
-=======
 	    limpa()// Limpa a tela
 	    // Cabeçalho do sistema
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
 	   escreva("==========================================\n")
 	   escreva("      PORTAS ABERTAS   \n")
 	   escreva("  Sistema de Apoio ao Imigrante\n")
@@ -1143,18 +1062,13 @@ programa
 }
   }
 
+
 /* $$$ Portugol Studio $$$ 
  * 
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
-<<<<<<< HEAD
- * @POSICAO-CURSOR = 3875; 
- * @DOBRAMENTO-CODIGO = [39, 173, 188, 235, 259, 305, 318, 427, 553, 598, 649, 678, 729, 746, 764, 836, 891, 929, 959, 985];
-=======
- * @POSICAO-CURSOR = 17279; 
- * @DOBRAMENTO-CODIGO = [29, 120, 162, 175, 218, 241, 283, 295, 402, 570, 619, 647, 696, 711, 727, 790, 846, 885, 915, 941];
->>>>>>> c023ba22e5793bcb6662093a1cab2d449604f1e9
+ * @POSICAO-CURSOR = 33809; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
