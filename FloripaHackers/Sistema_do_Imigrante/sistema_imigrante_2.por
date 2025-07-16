@@ -1,21 +1,28 @@
-programa
-{
-
-  inclua biblioteca Util --> u // importando funcao util
-  inclua biblioteca Texto --> tx // importando funcao texto
-  inclua biblioteca Tipos
-
+programa{
+	
+	inclua biblioteca Util --> u // importando funcao util
+  	inclua biblioteca Texto --> tx // importando funcao texto
+ 	inclua biblioteca Tipos
+	
 	cadeia usuario,senha, email, dtnascimento, pais, nome
 	inteiro infinito = 1, cambio = -1
 	const inteiro tamanho = 100 // Deve ser colocado o mesmo numero de linhas que o vetor bancoUsuario
 	cadeia bancoUsuario[tamanho][9]
-	 
-
+	
+	//------------ historico -----------------------//
+	cadeia bancoHistorico[100][10]
+	inteiro registroHistorico = 0
+	inteiro validador = 0
+	inteiro IdHistorico = 0
+	cadeia bancoVagas[11][6]
+	//---------------------------------------------//
+	
 	inteiro posicaoAuxiliar = 0
 
-	funcao criarUsuario(cadeia nome, cadeia password, cadeia tipo, cadeia nomecompleto, cadeia dt_nascimento, cadeia nacionalidade, cadeia doc_identificacao, cadeia email2, cadeia status)
-	{
+	funcao criarUsuario(cadeia nome, cadeia password, cadeia tipo, cadeia nomecompleto, cadeia dt_nascimento, cadeia nacionalidade, cadeia doc_identificacao, cadeia email2, cadeia status){
+		
 		posicaoAuxiliar = localizacao()
+		cadeia idimigrante = Tipos.caracter_para_cadeia(Tipos.inteiro_para_caracter(posicaoAuxiliar))
 		bancoUsuario[posicaoAuxiliar][0] = nome
 		bancoUsuario[posicaoAuxiliar][1] = password
 		bancoUsuario[posicaoAuxiliar][2] = tipo
@@ -25,95 +32,190 @@ programa
 		bancoUsuario[posicaoAuxiliar][6] = doc_identificacao
 		bancoUsuario[posicaoAuxiliar][7] = email2
 		bancoUsuario[posicaoAuxiliar][8] = status
+		
+		
+	}
+
+	funcao criarBancoHistorico(){
+		
+		bancoHistorico[0][0] = "idhistorico"
+		bancoHistorico[0][1] = "idimigrante"
+		bancoHistorico[0][2] = "tipo"
+		bancoHistorico[0][3] = "nivel_escolar"
+		bancoHistorico[0][4] = "id_nivelescolar"
+		bancoHistorico[0][5] = "curso"
+		bancoHistorico[0][6] = "profissao"
+		bancoHistorico[0][7] = "empresa"
+		bancoHistorico[0][8] = "cargo"
+		bancoHistorico[0][9] = "cidade"
+	}
+
+	funcao criarVagas() {
+		
+
+		// Cabeçalhos
+		bancoVagas[0][0] = "ID"
+		bancoVagas[0][1] = "Profissão"
+		bancoVagas[0][2] = "Descrição"
+		bancoVagas[0][3] = "Empresa"
+		bancoVagas[0][4] = "Telefone"
+		bancoVagas[0][5] = "Email"
+
+		// Vagas
+		bancoVagas[1][0] = "1"
+		bancoVagas[1][1] = "Ajudante de Pedreiro"
+		bancoVagas[1][2] = "Auxilia nas obras, carrega materiais"
+		bancoVagas[1][3] = "Construtora Alfa"
+		bancoVagas[1][4] = "(11) 9999-0001"
+		bancoVagas[1][5] = "contato@alfa.com"
+
+		bancoVagas[2][0] = "2"
+		bancoVagas[2][1] = "Auxiliar de Limpeza"
+		bancoVagas[2][2] = "Limpeza de escritórios"
+		bancoVagas[2][3] = "LimpaBem"
+		bancoVagas[2][4] = "(11) 9999-0002"
+		bancoVagas[2][5] = "rh@limpabem.com"
+
+		bancoVagas[3][0] = "3"
+		bancoVagas[3][1] = "Repositor"
+		bancoVagas[3][2] = "Organiza produtos em prateleiras"
+		bancoVagas[3][3] = "Supermercado BomPreço"
+		bancoVagas[3][4] = "(11) 9999-0003"
+		bancoVagas[3][5] = "vagas@bompreco.com"
+
+		bancoVagas[4][0] = "4"
+		bancoVagas[4][1] = "Auxiliar de Cozinha"
+		bancoVagas[4][2] = "Ajuda no preparo de refeições"
+		bancoVagas[4][3] = "Restaurante SaborCaseiro"
+		bancoVagas[4][4] = "(11) 9999-0004"
+		bancoVagas[4][5] = "contato@saborcaseiro.com"
+
+		bancoVagas[5][0] = "5"
+		bancoVagas[5][1] = "Serviços Gerais"
+		bancoVagas[5][2] = "Pequenos reparos e limpeza"
+		bancoVagas[5][3] = "Manutenções Rápidas"
+		bancoVagas[5][4] = "(11) 9999-0005"
+		bancoVagas[5][5] = "manutencao@rapidas.com"
+
+		bancoVagas[6][0] = "6"
+		bancoVagas[6][1] = "Atendente de Lanchonete"
+		bancoVagas[6][2] = "Atendimento e caixa"
+		bancoVagas[6][3] = "Lanchonete Delícia"
+		bancoVagas[6][4] = "(11) 9999-0006"
+		bancoVagas[6][5] = "vagas@delicia.com"
+
+		bancoVagas[7][0] = "7"
+		bancoVagas[7][1] = "Carga e Descarga"
+		bancoVagas[7][2] = "Movimentação de mercadorias"
+		bancoVagas[7][3] = "Transportadora Rápida"
+		bancoVagas[7][4] = "(11) 9999-0007"
+		bancoVagas[7][5] = "rh@transportadora.com"
+
+		bancoVagas[8][0] = "8"
+		bancoVagas[8][1] = "Coletor de Recicláveis"
+		bancoVagas[8][2] = "Coleta de lixo reciclável"
+		bancoVagas[8][3] = "EcoColeta"
+		bancoVagas[8][4] = "(11) 9999-0008"
+		bancoVagas[8][5] = "contato@ecocoleta.com"
+
+		bancoVagas[9][0] = "9"
+		bancoVagas[9][1] = "Zelador"
+		bancoVagas[9][2] = "Cuidado e manutenção de prédio"
+		bancoVagas[9][3] = "Admin Predial"
+		bancoVagas[9][4] = "(11) 9999-0009"
+		bancoVagas[9][5] = "vagas@predial.com"
+
+		bancoVagas[10][0] = "10"
+		bancoVagas[10][1] = "Auxiliar de Produção"
+		bancoVagas[10][2] = "Montagem de produtos"
+		bancoVagas[10][3] = "Fábrica União"
+		bancoVagas[10][4] = "(11) 9999-0010"
+		bancoVagas[10][5] = "rh@uniao.com"
+
+		
 	}
 	
-	funcao inicio()
-	{	// Cria um usuário do governo (tipo 1)
-		criarUsuario("andre", "1234", "1","Andre da Silva","25/05/1990","AN","6890Y56","andre@outlook.com","ativo")
-		// Cria um usuário imigrante (tipo 2)
-		criarUsuario("luis", "6789", "2","Luis Wagner Britt","14/11/2000","BO","098567930" ,"luiskare@gmail.com","ativo")
-		// Chama a tela inicial do sistema
-		telainicial()
+
+	funcao  cabecalho(){ 
 		
+		escreva(" ==========================================\n")
+		escreva("|             PORTAS ABERTAS               |\n")
+		escreva("|      Sistema de Apoio ao Imigrante       |\n")
+		escreva(" ==========================================\n")
+	}
+
+	funcao  saudacoes(){ 
+		
+		escreva(" ==============================================================================\n")
+		escreva("|                             PORTAS ABERTAS                                   |\n")
+		escreva("|                     Sistema de Apoio ao Imigrante                            |\n")
+		escreva("|                                                                              |\n")
+		escreva("|         Apoio para quem começa uma nova vida longe de casa                   |\n")
+		escreva("| Nosso objetivo é acolher, informar e conectar para que você se sinta em casa |\n")
+		escreva("|                     onde quer que esteja.                                    |\n")
+		escreva(" ==============================================================================\n")
+	
 	}
 		
-	funcao login()
-	{
+	funcao login(){
+		
 		inteiro idade
 		inteiro auxiliar = 0 // Usado para armazenar a posição do usuário no banco de dados
 
 		limpa() // Limpa a tela
 			
-		faca
-		{	// Exibe o cabeçalho do sistema
-			escreva("==========================================\n")
-			escreva("      PORTAS ABERTAS   \n")
-			escreva("  Sistema de Apoio ao Imigrante\n")
-			escreva("==========================================\n")
+		faca{
+			// Exibe o cabeçalho do sistema
+			cabecalho()
+			
 			escreva("Para retornar ao site original digite 'q' e enter\n")
 			// Entrada do usuário
 		     escreva("Usuario: ")
 		     leia(usuario)
 		     // Verifica se o usuário deseja sair
-		     se 
-				(usuario == "q")
-				{
-					escreva ("Retornando a pagina inicial!\n")
-					Util.aguarde(1000)	
-					limpa()
-					pare
-				}
-				// Entrada da senha
+		     se(usuario == "q"){
+		     	escreva ("Retornando a pagina inicial!\n")
+				Util.aguarde(1000)	
+				limpa()
+				pare
+			}
+			// Entrada da senha
 		     escreva("Senha: ")
 		     leia(senha)
 			// Procura a posição do usuário no banco
-			para (inteiro posicao = 0; posicao < tamanho; posicao++)
-				{
-				se (usuario ==	bancoUsuario[posicao][0])
-				{
+			para(inteiro posicao = 0; posicao < tamanho; posicao++){
+				se (usuario ==	bancoUsuario[posicao][0]){
 					auxiliar = posicao // Guarda a posição caso encontre o usuário
-				}
-			
-				senao
-				{}
-				}
+				}senao{}
+			}
 				
 			// Verifica se o nome de usuário e senha estão corretos
-			se (usuario == bancoUsuario[auxiliar][0] e senha == bancoUsuario[auxiliar][1])
-			{	
+			se (usuario == bancoUsuario[auxiliar][0] e senha == bancoUsuario[auxiliar][1]){	
 				// Verifica se o usuário está ativo
-				se(bancoUsuario[auxiliar][8]!="ativo")
-				{
+				se(bancoUsuario[auxiliar][8]!="ativo"){
+					
 					limpa()
 					escreva("!!!Usuario desativado, contate o sistema de suporte!!!")
 					Util.aguarde(2000)
 					limpa()
-				}
-				senao
-				{
+					
+				}senao{
+					
 					escreva("entrada OK")
 					Util.aguarde(1000)
-		   
 					// Verifica o tipo de usuário:
 					// "1" = governo → direciona para o menu do governo
-						se 
-						(bancoUsuario[auxiliar][2] == "1")
-						{        
-							menuGoverno()
-							Util.aguarde(2000)
-						}
-						// "2" = imigrante → direciona para menu de imigrante
-						senao se 
-						(bancoUsuario[auxiliar][2] == "2")
-						{
-							escreva("menu_imigrante")
-							Util.aguarde(2000)
-						}
+					se(bancoUsuario[auxiliar][2] == "1"){
+						menuGoverno()
+						Util.aguarde(2000)
+					}senao se(bancoUsuario[auxiliar][2] == "2"){ // "2" = imigrante → direciona para menu de imigrante
+						
+						Util.aguarde(2000)
+						menuImigrante(auxiliar)
+					}
 
 				}
-			}
-			senao
-			{     
+			}senao{     
 				// Caso não encontre o usuário ou a senha esteja incorreta
 				escreva("Dados nao encontrados no sistema, verifique os dados e tente novamente")
 				Util.aguarde(2000)
@@ -131,17 +233,23 @@ programa
 		cadeia entrada// Variável para armazenar a escolha do usuário
 
 		faca{
+			
+			se(validador == 0){
+				saudacoes()
+				u.aguarde(6000)
+				limpa()
+				validador++
+				
+			}
+			
 		// Exibe o cabeçalho do sistema
-		escreva("==========================================\n")
-		escreva("       PORTAS ABERTAS   \n")
-		escreva("   Sistema de Apoio ao Imigrante\n")
-		escreva("==========================================\n")
+		cabecalho()
+		
 		// Mensagem institucional
-		escreva("Apoio para quem começa uma nova vida longe de casa\n")
-		escreva("Nosso objetivo é acolher, informar e conectar, para que você se sinta em casa, onde quer que esteja.")
+		
 		// Menu de opções
-		escreva("O que deseja fazer?\n")
-		escreva("1 - Cadastro\n")
+		
+		escreva("\n1 - Cadastro\n")
 		escreva("2 - Log in\n")
 		leia(entrada)
 				// Verifica a escolha e direciona para a função correspondente
@@ -220,7 +328,10 @@ programa
 			}
 			senao
 			{
-				escreva("Usuario OK\n")  // Nome disponível
+				escreva("Usuario OK\n") // Nome disponível
+				u.aguarde(2000)
+				limpa()
+				cabecalho()	
 			}	
 		}
 		senao
@@ -247,6 +358,10 @@ programa
 			{
 				escreva("Senha OK\n") // Senha válida
 				check = 1
+				u.aguarde(2000)
+				limpa()
+				cabecalho()	
+				
 			}
 		senao
 		{
@@ -560,10 +675,7 @@ programa
 	inteiro check = 0  // Variável auxiliar que pode ser usada para controle de validações
 
 	limpa()
-	escreva("==========================================\n")
-	escreva("      PORTAS ABERTAS   \n")
-	escreva("  Sistema de Apoio ao Imigrante\n")
-	escreva("==========================================\n")
+	cabecalho()
 
 	// As linhas abaixo coletam os dados do imigrante, utilizando subfunções para cada campo onde necessário
 	
@@ -847,10 +959,7 @@ programa
 			limpa()// Limpa a tela para mostrar o menu
 
 		 // Exibe o título e as opções do menu
-	     escreva("==========================================\n")
-		escreva("      PORTAS ABERTAS   \n")
-		escreva("  Sistema de Apoio ao Imigrante\n")
-		escreva("==========================================\n")
+	    	cabecalho()
 		escreva("    MENU GOVERNO \n")
 		escreva("\nESCOLHA UMA OPCAO: ")
 		escreva("\n(1) CRIAR NOVO CADASTRO")
@@ -944,10 +1053,7 @@ programa
 	     limpa()// Limpa a tela
 	     // Cabeçalho do sistema
 
-	     escreva("==========================================\n")
-		escreva("      PORTAS ABERTAS   \n")
-		escreva("  Sistema de Apoio ao Imigrante\n")
-		escreva("==========================================\n")
+	     cabecalho()
 	     escreva("        MENU GOVERNO    \n")
 	     escreva(" DADOS CADASTRADOS :\n")
 	     // Cabeçalho da tabela com os campos exibidos
@@ -975,10 +1081,7 @@ programa
 	     
 	    limpa()// Limpa a tela
 	    // Cabeçalho do sistema
-	   escreva("==========================================\n")
-	   escreva("      PORTAS ABERTAS   \n")
-	   escreva("  Sistema de Apoio ao Imigrante\n")
-	   escreva("==========================================\n")
+	   cabecalho()
 
      	para (inteiro posicao = 0; posicao < tamanho; posicao++){
 			se(bancoUsuario[posicao][0] == usuario){
@@ -995,7 +1098,7 @@ programa
      }
       }
 
-    funcao logico validarEmail() {
+    	funcao logico validarEmail() {
   	
   	// Variáveis de controle
     inteiro i, tamanhoEmail, posArroba = -1, posPonto = -1, contadorArroba = 0
@@ -1059,8 +1162,299 @@ programa
     }
 	// Retorna verdadeiro se passou em todas as validações
     retorne check
-}
+	}
+
+
+	funcao menuImigrante(inteiro idimigrante){
+
+		cadeia invalido = "verdadeiro"
+		caracter opcao
+		cadeia idimigranteConvert = Tipos.caracter_para_cadeia(Tipos.inteiro_para_caracter(idimigrante))
+		
+    limpa()
+
+		enquanto (invalido == "verdadeiro"){
+			
+			escreva(" ==== Menu - Imigrante ====\n\n")
+			escreva("1 - 👤 Perfil\n")
+		  	escreva("2 - 📝 informacoes complementares\n")
+		  	escreva("3 - 💼 consultar vagas \n")
+		  	escreva("4 - 🖍️ Alterar Dados\n")
+		  	escreva("5 - Sair ")
+      
+		  	leia(opcao)
+	    
+			escolha(opcao){
+				caso '1':
+					invalido = "falso"
+					limpa()
+	    			
+	    			escreva("Menu - Imigrante(Perfil) \n\n")
+	    			
+				escreva("NOME: ",bancoUsuario[idimigrante][3],"\n")
+				escreva("Email: ",bancoUsuario[idimigrante][7],"\n")
+				escreva("Doc.Identificacao: ",bancoUsuario[idimigrante][6],"\n")
+				escreva("Data Nascimento: ",bancoUsuario[idimigrante][4],"\n")
+				escreva("Nacionalidade: ",bancoUsuario[idimigrante][5],"\n")
+				escreva("Usuario: ",bancoUsuario[idimigrante][0],"\n")
+				escreva("Senha: ",bancoUsuario[idimigrante][1],"\n")
+				escreva("Aperte 'Enter' para voltar. ")
+				cadeia i
+				leia(i)
+				
+				u.aguarde(2000)
+				menuImigrante(idimigrante)
+				
+	    			
+	    			pare
+	    			caso '2':
+	    				invalido = "falso"
+            			limpa()
+	    				escreva("Menu - Imigrante(informacoes complementares) \n\n")
+            			escreva("1 - Adicionar Historico escolar\n")
+            			escreva("2 - Adicionar Historico profissional\n")
+            			escreva("3 - Adicionar Historico cursos\n")
+            			escreva("4 - Voltar\n")
+            			leia(opcao)
+            			escolha(opcao){
+              			caso '1':
+                			adicionarHistoricoEscolar(idimigrante) pare 
+              			caso '2':
+                			adicionarHistoricoProfissional(idimigrante) pare
+              			caso '3':
+                			adicionarHistoricoCursos(idimigrante) pare
+              			caso '4': menuImigrante(idimigrante) pare
+              			caso contrario: escreva("❌ Digite uma opção Válida !!!") pare 
+
+            			}
+            		pare
+	    			caso '3':
+	    				invalido = "falso"
+	    				escreva("Menu - Imigrante(Vagas)\n\n")
+            			consultarVagas(idimigrante)
+	    				pare
+	    			
+	    			caso '4':
+	    				invalido = "falso"
+	    				escreva("Menu - Imigrante(Alterar Dados)\n\n")
+	    				pare
+	    			caso '5':escreva("Saindo...")  u.aguarde(2000) limpa() telainicial() pare
+	    			caso contrario:limpa() escreva("❌ Digite uma opção Válida !!\n")
+            			u.aguarde(2000)
+            			limpa()
+	    				pare
+	    		}
+			
+		}
+
+		
+	}
+	funcao consultarVagas(inteiro idimigrante){
+		limpa()
+    		inteiro i
+      	escreva("                                                                          - VAGAS -                                                                           \n")
+      	escreva(" -------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
+      	escreva(" | ", preencher(bancoVagas[0][0],3), " | ", preencher(bancoVagas[0][1],25), " | ", preencher(bancoVagas[0][2],40), " | ", preencher(bancoVagas[0][3],30), " | ", preencher(bancoVagas[0][4],15), " | ", preencher(bancoVagas[0][5],25), " | \n" )
+      	escreva(" -------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
+      	para(i = 1; i <= 10;i++){
+      		escreva(" | ", preencher(bancoVagas[i][0],3), " | ", preencher(bancoVagas[i][1],25), " | ", preencher(bancoVagas[i][2],40), " | ", preencher(bancoVagas[i][3],30), " | ", preencher(bancoVagas[i][4],15), " | ", preencher(bancoVagas[i][5],25), " | \n" )
+        		escreva(" -------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
+				
+
+    }
+
+    cadeia validator
+
+    escreva("Aperte'ENTER' para voltar")
+    leia(validator)
+    u.aguarde(2000)
+    limpa()
+    menuImigrante(idimigrante)
+			
+				
+			
   }
+
+  	funcao cadeia preencher(cadeia texto, inteiro tamanhoPreencher) {
+        inteiro faltando
+        cadeia resultado
+        resultado = texto
+        faltando = tamanhoPreencher - tx.numero_caracteres(texto)
+        enquanto(faltando > 0){
+            resultado = resultado + " "
+            faltando = faltando - 1
+        }
+        retorne resultado
+    }
+
+
+	funcao adicionarHistoricoEscolar(inteiro idimigrante){
+
+		registroHistorico+=1
+
+		caracter opcao
+		cadeia tipo = "Escolar"
+		cadeia idHistorico = Tipos.caracter_para_cadeia(Tipos.inteiro_para_caracter(registroHistorico))
+		cadeia idimigranteConvert = Tipos.caracter_para_cadeia(Tipos.inteiro_para_caracter(idimigrante))
+		cadeia nivelEscolar
+		logico verdade = verdadeiro
+
+		enquanto(verdade){
+
+			verdade = falso
+			escreva("Qual sua escolaridade?\n")
+		    	escreva("1 - Ensino Básico\n2 - Médio incompleto\n3 - Médio Completo\n4 - Superior Completo\n5 - Superior Incompleto\n")
+		    	escreva("Qual opcão")
+		    	leia(opcao)
+		    	escolha(opcao){
+		    		caso '1': nivelEscolar = "Ensino Básico"  bancoHistorico[registroHistorico][3] = nivelEscolar pare
+		    		caso '2': nivelEscolar = "Ensino Médio incompleto" bancoHistorico[registroHistorico][3] = nivelEscolar pare
+		    		caso '3': nivelEscolar = "Ensino Médio completo" bancoHistorico[registroHistorico][3] = nivelEscolar pare
+		    		caso '4': nivelEscolar = "Ensino Superior Completo" bancoHistorico[registroHistorico][3] = nivelEscolar pare
+		    		caso '5': nivelEscolar = "Ensino Superior Incompleto" bancoHistorico[registroHistorico][3] = nivelEscolar pare
+		    		caso contrario: escreva("❌ Digite um valor válido\n")  verdade = verdadeiro pare
+		
+		    	}
+
+		}
+
+		bancoHistorico[registroHistorico][0] = idHistorico
+		bancoHistorico[registroHistorico][1] = idimigranteConvert
+		bancoHistorico[registroHistorico][2] = tipo
+		bancoHistorico[registroHistorico][4] = "1"
+		bancoHistorico[registroHistorico][5] = "NULL"
+		bancoHistorico[registroHistorico][6] = "NULL"
+		bancoHistorico[registroHistorico][7] = "NULL"
+		bancoHistorico[registroHistorico][8] = "NULL"
+		bancoHistorico[registroHistorico][9] = "NULL"
+
+		
+    		sucesso(idimigrante)
+
+   
+
+	}
+
+	funcao adicionarHistoricoProfissional(inteiro idimigrante){
+
+		registroHistorico+=1
+		cadeia tipo = "Profissional"
+		cadeia idHistorico = Tipos.caracter_para_cadeia(Tipos.inteiro_para_caracter(registroHistorico))
+		cadeia idimigranteConvert = Tipos.caracter_para_cadeia(Tipos.inteiro_para_caracter(idimigrante))
+		cadeia profissao
+    		cadeia empresa
+    		cadeia cargo
+    		cadeia cidade
+
+    limpa()
+
+    escreva("Menu - Imigrante(Histórico Profissional) \n\n")
+
+		escreva("Qual a sua profissão? ")
+		leia(profissao)
+		escreva("Qual nome da empresa: ")
+    leia(empresa)
+    escreva("Qual o cargo: ")
+    leia(cargo)
+    escreva("Qual a cidade: ")
+    leia(cidade)
+
+		bancoHistorico[registroHistorico][0] = idHistorico
+		bancoHistorico[registroHistorico][1] = idimigranteConvert
+		bancoHistorico[registroHistorico][2] = tipo
+		bancoHistorico[registroHistorico][3] = "NULL"
+		bancoHistorico[registroHistorico][4] = "NULL"
+		bancoHistorico[registroHistorico][5] = "NULL"
+		bancoHistorico[registroHistorico][6] = profissao
+		bancoHistorico[registroHistorico][7] = empresa
+		bancoHistorico[registroHistorico][8] = cargo
+    		bancoHistorico[registroHistorico][9] = cidade
+
+    sucesso(idimigrante)
+	
+		
+	}
+
+	funcao adicionarHistoricoCursos(inteiro idimigrante){
+    limpa()
+    registroHistorico+=1
+    inteiro validadorCurso = 0
+    cadeia resposta 
+    cadeia cursos = ""
+    cadeia curso
+    inteiro qntdCursos = 1
+    cadeia idHistorico = Tipos.caracter_para_cadeia(Tipos.inteiro_para_caracter(registroHistorico))
+    cadeia idimigranteConvert = Tipos.caracter_para_cadeia(Tipos.inteiro_para_caracter(idimigrante))
+    cadeia tipo = "curso"
+
+    escreva("=== Menu - Imigrante(Cursos) ===\n\n")
+
+    enquanto(validadorCurso == 0){
+      
+			escreva("Digite o curso: ")
+			leia(curso)
+
+      		cursos+=curso
+      	
+			escreva("Deseja adicionar mais curso ?(S/N)")
+			leia(resposta)
+			
+      
+
+      		cadeia novoCurso = ","
+
+      		
+			
+			
+			escolha(Tipos.cadeia_para_caracter(tx.caixa_alta(resposta))){
+				caso 'S':
+          			cursos+=novoCurso
+          			pare
+
+				caso 'N':  validadorCurso = 1 pare
+				caso contrario:validadorCurso = 2 escreva("❌ Opção inválido!!\n") pare
+					
+      }
+
+		}
+
+    bancoHistorico[registroHistorico][0] = idHistorico
+		bancoHistorico[registroHistorico][1] = idimigranteConvert 
+		bancoHistorico[registroHistorico][2] = tipo
+		bancoHistorico[registroHistorico][3] = "NULL"
+		bancoHistorico[registroHistorico][4] = "NULL"
+		bancoHistorico[registroHistorico][5] = cursos
+		bancoHistorico[registroHistorico][6] = "NULL"
+		bancoHistorico[registroHistorico][7] = "NULL"
+		bancoHistorico[registroHistorico][8] = "NULL"
+    bancoHistorico[registroHistorico][9] = "NULL"
+
+    sucesso(idimigrante)
+
+	}
+
+	funcao sucesso(inteiro idimigrante){
+
+     escreva("✅ Histórico adicionado com sucesso !!\n")
+
+    u.aguarde(3000)
+    limpa()
+
+    menuImigrante(idimigrante)
+  }
+
+	funcao inicio(){
+		// Cria um usuário do governo (tipo 1)
+		criarUsuario("andre", "1234", "1","Andre da Silva","25/05/1990","AN","6890Y56","andre@outlook.com","ativo")
+		// Cria um usuário imigrante (tipo 2)
+		criarUsuario("luis", "6789", "2","Luis Wagner Britt","14/11/2000","BO","098567930" ,"luiskare@gmail.com","ativo")
+		criarBancoHistorico()
+		criarVagas()
+		// Chama a tela inicial do sistema
+		telainicial()
+		
+	}
+}
 
 
 /* $$$ Portugol Studio $$$ 
@@ -1068,7 +1462,8 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 33809; 
+ * @POSICAO-CURSOR = 45170; 
+ * @DOBRAMENTO-CODIGO = [52, 138, 146, 230, 282, 297, 347, 375, 422, 435, 544, 670, 712, 763, 792, 843, 860, 877, 952, 1004, 1049, 1077, 1100, 1435];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
