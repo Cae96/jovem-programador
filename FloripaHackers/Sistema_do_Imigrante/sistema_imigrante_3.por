@@ -236,7 +236,7 @@ programa{
 			
 			se(validador == 0){
 				saudacoes()
-				u.aguarde(6000)
+				u.aguarde(5000)
 				limpa()
 				validador++
 				
@@ -1176,11 +1176,11 @@ programa{
 		enquanto (invalido == "verdadeiro"){
 			
 			escreva(" ==== Menu - Imigrante ====\n\n")
-			escreva("1 - 👤 Perfil\n")
-		  	escreva("2 - 📝 informacoes complementares\n")
-		  	escreva("3 - 💼 consultar vagas \n")
-		  	escreva("4 - 🖍️ Alterar Dados\n")
-		  	escreva("5 - Sair ")
+			escreva("1 - Perfil\n")
+		  	escreva("2 - informacoes complementares\n")
+		  	escreva("3 - consultar vagas \n")
+		  	escreva("4 - Alterar Dados\n")
+		  	escreva("5 - Sair\n")
       
 		  	leia(opcao)
 	    
@@ -1198,7 +1198,51 @@ programa{
 				escreva("Nacionalidade: ",bancoUsuario[idimigrante][5],"\n")
 				escreva("Usuario: ",bancoUsuario[idimigrante][0],"\n")
 				escreva("Senha: ",bancoUsuario[idimigrante][1],"\n")
-				escreva("Aperte 'Enter' para voltar. ")
+
+				inteiro auxiliare
+				
+
+				se(registroHistorico > 0){
+					inteiro contagemcurso = 0
+					
+					
+					
+					para(inteiro posicao = 1; posicao <= registroHistorico; posicao++){
+						
+						se(bancoHistorico[posicao][1] == idimigranteConvert e bancoHistorico[posicao][2] == "Escolar"){
+							escreva("Escolaridade: ", bancoHistorico[posicao][3],"\n")
+								
+							
+						}senao{}	
+							
+								
+					
+
+
+						se(bancoHistorico[posicao][1] == idimigranteConvert e bancoHistorico[posicao][2] == "curso"){
+							 
+							se(contagemcurso == 0){
+								escreva("cursos: ", bancoHistorico[posicao][5])
+								contagemcurso++
+								
+								
+							}senao{
+								escreva(",",bancoHistorico[posicao][5])
+								
+							}
+							
+						}senao {}
+						}
+					}senao{
+
+
+					
+				}
+
+				
+			
+				
+				escreva("\nAperte 'Enter' para voltar. ")
 				cadeia i
 				leia(i)
 				
@@ -1210,23 +1254,20 @@ programa{
 	    			caso '2':
 	    				invalido = "falso"
             			limpa()
-	    				escreva("Menu - Imigrante(informacoes complementares) \n\n")
-            			escreva("1 - Adicionar Historico escolar\n")
-            			escreva("2 - Adicionar Historico profissional\n")
-            			escreva("3 - Adicionar Historico cursos\n")
-            			escreva("4 - Voltar\n")
-            			leia(opcao)
-            			escolha(opcao){
-              			caso '1':
-                			adicionarHistoricoEscolar(idimigrante) pare 
-              			caso '2':
-                			adicionarHistoricoProfissional(idimigrante) pare
-              			caso '3':
-                			adicionarHistoricoCursos(idimigrante) pare
-              			caso '4': menuImigrante(idimigrante) pare
-              			caso contrario: escreva("❌ Digite uma opção Válida !!!") pare 
+            			caracter opcaoComplementar
+            			escreva("Menu - Imigrante(informacoes complementares) \n\n")
 
-            			}
+					escreva("1 - Adcionar Historico\n")
+					escreva("2 - Listar historico")
+					leia(opcaoComplementar)
+					escolha(opcaoComplementar){
+
+						caso '1': menuAdcionarHistorico(idimigrante)
+						caso '2': listarHistorico(idimigrante)
+						
+					}
+            			
+	    				
             		pare
 	    			caso '3':
 	    				invalido = "falso"
@@ -1249,6 +1290,40 @@ programa{
 
 		
 	}
+
+	funcao listarHistorico(inteiro idimigrante){
+
+		escreva("EM MANUTENÇÃO ... ")
+		u.aguarde(2000)
+		menuImigrante(idimigrante)
+		
+		
+	}
+
+	funcao menuAdcionarHistorico(inteiro idimigrante){
+		limpa()
+		
+		caracter opcaohistorico
+
+		escreva("1 - Adicionar Historico escolar\n")
+          escreva("2 - Adicionar Historico profissional\n")
+          escreva("3 - Adicionar cursos\n")
+          escreva("4 - Voltar\n")
+          leia(opcaohistorico)
+          escolha(opcaohistorico){
+          	caso '1': adicionarHistoricoEscolar(idimigrante) pare 
+              	caso '2': adicionarHistoricoProfissional(idimigrante) pare
+              	caso '3': adicionarHistoricoCursos(idimigrante) pare
+              	caso '4': menuImigrante(idimigrante) pare
+              	caso contrario: escreva("❌ Digite uma opção Válida !!!") pare 
+
+         }
+		
+		
+	}
+
+
+	
 	funcao consultarVagas(inteiro idimigrante){
 		limpa()
     		inteiro i
@@ -1350,8 +1425,7 @@ programa{
 
     escreva("Menu - Imigrante(Histórico Profissional) \n\n")
 
-		escreva("Qual a sua profissão? ")
-		leia(profissao)
+		
 		escreva("Qual nome da empresa: ")
     leia(empresa)
     escreva("Qual o cargo: ")
@@ -1365,7 +1439,7 @@ programa{
 		bancoHistorico[registroHistorico][3] = "NULL"
 		bancoHistorico[registroHistorico][4] = "NULL"
 		bancoHistorico[registroHistorico][5] = "NULL"
-		bancoHistorico[registroHistorico][6] = profissao
+		bancoHistorico[registroHistorico][6] = "Profissao"
 		bancoHistorico[registroHistorico][7] = empresa
 		bancoHistorico[registroHistorico][8] = cargo
     		bancoHistorico[registroHistorico][9] = cidade
@@ -1418,7 +1492,7 @@ programa{
 
 		}
 
-    bancoHistorico[registroHistorico][0] = idHistorico
+    		bancoHistorico[registroHistorico][0] = idHistorico
 		bancoHistorico[registroHistorico][1] = idimigranteConvert 
 		bancoHistorico[registroHistorico][2] = tipo
 		bancoHistorico[registroHistorico][3] = "NULL"
@@ -1427,9 +1501,9 @@ programa{
 		bancoHistorico[registroHistorico][6] = "NULL"
 		bancoHistorico[registroHistorico][7] = "NULL"
 		bancoHistorico[registroHistorico][8] = "NULL"
-    bancoHistorico[registroHistorico][9] = "NULL"
+    		bancoHistorico[registroHistorico][9] = "NULL"
 
-    sucesso(idimigrante)
+    		sucesso(idimigrante)
 
 	}
 
@@ -1462,8 +1536,8 @@ programa{
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 45170; 
- * @DOBRAMENTO-CODIGO = [52, 138, 146, 230, 282, 297, 347, 375, 422, 435, 544, 670, 712, 763, 792, 843, 860, 877, 952, 1004, 1049, 1077, 1100, 1435];
+ * @POSICAO-CURSOR = 37111; 
+ * @DOBRAMENTO-CODIGO = [52, 138, 146, 282, 297, 347, 375, 422, 435, 544, 670, 712, 763, 792, 843, 860, 877, 952, 1004, 1049, 1077, 1100, 1509];
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
